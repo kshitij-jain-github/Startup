@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Portfolio | AURA Studio</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+    background:#050505;
+    color:#F5F5DC;
+    font-family:'Inter',sans-serif;
+    cursor:none;
+}
+.glass{
+    background:rgba(15,15,15,0.7);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(212,175,55,0.1);
+}
+.gold-gradient{
+    background:linear-gradient(135deg,#D4AF37,#F9E498);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+#cursor{
+    width:20px;height:20px;background:#D4AF37;border-radius:50%;
+    position:fixed;pointer-events:none;z-index:9999;
+}
+</style>
+</head>
+
+<body>
+
+<div id="cursor"></div>
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 w-full z-50 px-6 py-4 flex justify-center">
+<div class="glass max-w-6xl w-full rounded-full px-8 py-3 flex justify-between items-center">
+    <div class="text-2xl font-bold text-brand-gold">AURA.</div>
+    <div class="hidden md:flex space-x-8 text-sm">
+        <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="services.html">SERVICES</a>
+        <a href="portfolio.html" class="text-yellow-400">PORTFOLIO</a>
+        <a href="#">CONTACT</a>
+    </div>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center justify-center text-center px-6">
+<div>
+<h1 class="text-6xl font-bold mb-6">
+Selected <span class="gold-gradient">work</span>
+</h1>
+<p class="text-gray-400 max-w-xl mx-auto">
+Real results. Real brands. Real growth.
+</p>
+</div>
+</section>
+
+<!-- PROJECT GRID -->
+<section class="py-24 px-6">
+<div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
+
+<!-- Project Card -->
+<div class="group cursor-pointer">
+    <div class="relative overflow-hidden rounded-3xl aspect-video mb-4">
+        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe"
+        class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+        
+        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
+            <span class="bg-white text-black px-6 py-3 rounded-full text-sm font-bold">
+                VIEW CASE STUDY
+            </span>
+        </div>
+    </div>
+
+    <div class="flex justify-between">
+        <div>
+            <h3 class="text-xl font-bold">Lumina Skincare</h3>
+            <p class="text-gray-500 text-sm">Branding + Website</p>
+        </div>
+        <div class="text-yellow-400 font-bold">+400%</div>
+    </div>
+</div>
+
+<!-- Project Card -->
+<div class="group cursor-pointer">
+    <div class="relative overflow-hidden rounded-3xl aspect-video mb-4">
+        <img src="https://images.unsplash.com/photo-1635339001026-61969015bc76"
+        class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+        
+        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition">
+            <span class="bg-white text-black px-6 py-3 rounded-full text-sm font-bold">
+                VIEW CASE STUDY
+            </span>
+        </div>
+    </div>
+
+    <div class="flex justify-between">
+        <div>
+            <h3 class="text-xl font-bold">Apex Finance</h3>
+            <p class="text-gray-500 text-sm">UI/UX + Web</p>
+        </div>
+        <div class="text-yellow-400 font-bold">Series B</div>
+    </div>
+</div>
+
+</div>
+</section>
+
+<!-- CASE STUDY SECTION -->
+<section class="py-32 px-6 bg-[#0F0F0F]">
+<div class="max-w-5xl mx-auto">
+
+<h2 class="text-5xl font-bold mb-16 text-center">Case Study</h2>
+
+<div class="space-y-16">
+
+<!-- Problem -->
+<div>
+<h3 class="text-2xl font-bold mb-4">Problem</h3>
+<p class="text-gray-400">
+Client had strong product but weak branding and poor conversion website.
+</p>
+</div>
+
+<!-- Solution -->
+<div>
+<h3 class="text-2xl font-bold mb-4">Solution</h3>
+<p class="text-gray-400">
+We redesigned their brand identity, built a high-converting website, and optimized their funnel.
+</p>
+</div>
+
+<!-- Result -->
+<div>
+<h3 class="text-2xl font-bold mb-4">Result</h3>
+<p class="text-gray-400">
++400% increase in conversion rate within 3 months.
+</p>
+</div>
+
+</div>
+
+</div>
+</section>
+
+<!-- BEFORE AFTER -->
+<section class="py-32 px-6">
+<div class="max-w-6xl mx-auto text-center mb-16">
+<h2 class="text-5xl font-bold">Before vs After</h2>
+</div>
+
+<div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+<div class="h-64 bg-gray-800 rounded-2xl flex items-center justify-center">Before</div>
+<div class="h-64 bg-gray-800 rounded-2xl flex items-center justify-center">After</div>
+</div>
+</section>
+
+<!-- CTA -->
+<section class="py-32 text-center">
+<h2 class="text-5xl font-bold mb-6">
+Want results like this?
+</h2>
+<p class="text-gray-400 mb-8">Let’s build your next success story.</p>
+
+<button class="bg-yellow-500 text-black px-10 py-4 rounded-full">
+Start Project
+</button>
+</section>
+
+<script>
+// cursor
+const cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{
+cursor.style.left=e.clientX+'px';
+cursor.style.top=e.clientY+'px';
+});
+
+// gsap
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.from("h1",{opacity:0,y:80,duration:1});
+
+gsap.utils.toArray("section").forEach(sec=>{
+gsap.from(sec,{
+scrollTrigger:sec,
+opacity:0,
+y:80,
+duration:1
+});
+});
+</script>
+
+</body>
+</html>

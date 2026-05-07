@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Services | AURA Studio</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+body {
+    background:#050505;
+    color:#F5F5DC;
+    font-family:'Inter',sans-serif;
+    cursor:none;
+}
+.glass{
+    background:rgba(15,15,15,0.7);
+    backdrop-filter:blur(12px);
+    border:1px solid rgba(212,175,55,0.1);
+}
+.gold-gradient{
+    background:linear-gradient(135deg,#D4AF37,#F9E498);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+#cursor{
+    width:20px;height:20px;background:#D4AF37;border-radius:50%;
+    position:fixed;pointer-events:none;z-index:9999;
+}
+</style>
+</head>
+
+<body>
+
+<div id="cursor"></div>
+
+<!-- NAVBAR -->
+<nav class="fixed top-0 w-full z-50 px-6 py-4 flex justify-center">
+<div class="glass max-w-6xl w-full rounded-full px-8 py-3 flex justify-between items-center">
+    <div class="text-2xl font-bold text-brand-gold">AURA.</div>
+    <div class="hidden md:flex space-x-8 text-sm">
+        <a href="index.html">HOME</a>
+        <a href="about.html">ABOUT</a>
+        <a href="services.html" class="text-yellow-400">SERVICES</a>
+        <a href="#">PORTFOLIO</a>
+        <a href="#">CONTACT</a>
+    </div>
+</div>
+</nav>
+
+<!-- HERO -->
+<section class="min-h-screen flex items-center justify-center text-center px-6">
+<div>
+<h1 class="text-6xl font-bold mb-6">
+Premium services<br>
+<span class="gold-gradient">built to scale brands</span>
+</h1>
+
+<p class="text-gray-400 max-w-xl mx-auto">
+We don’t offer random services — we build complete digital systems designed for growth and conversion.
+</p>
+</div>
+</section>
+
+<!-- SERVICES -->
+<section class="py-32 px-6">
+<div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-8">
+
+<!-- Branding -->
+<div class="glass p-10 rounded-3xl hover:border-yellow-500/40 transition group">
+<h3 class="text-2xl font-bold mb-4">Branding</h3>
+<p class="text-gray-400 text-sm mb-6">
+We craft premium brand identities that instantly position you as high-value.
+</p>
+
+<ul class="text-sm text-gray-500 space-y-2 mb-8">
+<li>• Logo & Identity</li>
+<li>• Brand Strategy</li>
+<li>• Visual System</li>
+<li>• Positioning</li>
+</ul>
+
+<p class="text-yellow-400 font-bold">Starting ₹25,000</p>
+</div>
+
+<!-- Web -->
+<div class="glass p-10 rounded-3xl hover:border-yellow-500/40 transition group">
+<h3 class="text-2xl font-bold mb-4">Web Design & Dev</h3>
+<p class="text-gray-400 text-sm mb-6">
+High-converting websites designed for premium perception and business growth.
+</p>
+
+<ul class="text-sm text-gray-500 space-y-2 mb-8">
+<li>• UI/UX Design</li>
+<li>• Custom Development</li>
+<li>• Performance Optimization</li>
+<li>• SEO Structure</li>
+</ul>
+
+<p class="text-yellow-400 font-bold">Starting ₹50,000</p>
+</div>
+
+<!-- Content -->
+<div class="glass p-10 rounded-3xl hover:border-yellow-500/40 transition group">
+<h3 class="text-2xl font-bold mb-4">Content & Social</h3>
+<p class="text-gray-400 text-sm mb-6">
+Content systems designed to attract, engage, and convert audiences.
+</p>
+
+<ul class="text-sm text-gray-500 space-y-2 mb-8">
+<li>• Short-form Videos</li>
+<li>• Reels Editing</li>
+<li>• Social Strategy</li>
+<li>• Creative Direction</li>
+</ul>
+
+<p class="text-yellow-400 font-bold">Starting ₹20,000</p>
+</div>
+
+</div>
+</section>
+
+<!-- PROCESS -->
+<section class="py-32 px-6 bg-[#0F0F0F] text-center">
+<h2 class="text-5xl font-bold mb-16">Our Process</h2>
+
+<div class="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+
+<div>
+<p class="text-yellow-400 font-bold mb-2">01</p>
+<h3 class="font-bold">Strategy</h3>
+</div>
+
+<div>
+<p class="text-yellow-400 font-bold mb-2">02</p>
+<h3 class="font-bold">Design</h3>
+</div>
+
+<div>
+<p class="text-yellow-400 font-bold mb-2">03</p>
+<h3 class="font-bold">Build</h3>
+</div>
+
+<div>
+<p class="text-yellow-400 font-bold mb-2">04</p>
+<h3 class="font-bold">Launch</h3>
+</div>
+
+</div>
+</section>
+
+<!-- PRICING -->
+<section class="py-32 px-6">
+<div class="max-w-5xl mx-auto text-center mb-16">
+<h2 class="text-5xl font-bold">Packages</h2>
+</div>
+
+<div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+
+<div class="glass p-8 rounded-3xl">
+<h3 class="text-xl mb-4">Starter</h3>
+<p class="text-3xl font-bold mb-6">₹30K</p>
+<p class="text-gray-400 text-sm">Basic branding + landing page</p>
+</div>
+
+<div class="glass p-8 rounded-3xl border border-yellow-500">
+<h3 class="text-xl mb-4">Growth</h3>
+<p class="text-3xl font-bold mb-6">₹80K</p>
+<p class="text-gray-400 text-sm">Full website + branding</p>
+</div>
+
+<div class="glass p-8 rounded-3xl">
+<h3 class="text-xl mb-4">Premium</h3>
+<p class="text-3xl font-bold mb-6">₹1.5L+</p>
+<p class="text-gray-400 text-sm">Complete digital system</p>
+</div>
+
+</div>
+</section>
+
+<!-- CTA -->
+<section class="py-32 text-center">
+<h2 class="text-5xl font-bold mb-6">
+Not ready to stay average?
+</h2>
+<p class="text-gray-400 mb-8">Let’s build your premium brand.</p>
+
+<button class="bg-yellow-500 text-black px-10 py-4 rounded-full">
+Book Strategy Call
+</button>
+</section>
+
+<script>
+// cursor
+const cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{
+cursor.style.left=e.clientX+'px';
+cursor.style.top=e.clientY+'px';
+});
+
+// gsap
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.from("h1",{opacity:0,y:80,duration:1});
+
+gsap.utils.toArray("section").forEach(sec=>{
+gsap.from(sec,{
+scrollTrigger:sec,
+opacity:0,
+y:80,
+duration:1
+});
+});
+</script>
+
+</body>
+</html>

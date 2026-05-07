@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURA | Premium Digital Brand Studio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            black: '#050505',
+                            charcoal: '#0F0F0F',
+                            gold: '#D4AF37',
+                            goldLight: '#F9E498',
+                            beige: '#F5F5DC',
+                            accent: '#7C3AED' // Subtle purple glow
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #050505;
+            color: #F5F5DC;
+            cursor: none;
+            /* Custom cursor used */
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #F9E498 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #custom-cursor {
+            width: 20px;
+            height: 20px;
+            background: #D4AF37;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: transform 0.15s ease-out;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.3s ease-out;
+        }
+
+        .reveal-text {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+
+        /* Hide scrollbar but keep functionality */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 10px;
+        }
+
+        .before-after-container {
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased">
+
+    <!-- Gradient Glow Backgrounds -->
+    <div
+        class="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] bg-brand-accent/10 blur-[120px] rounded-full pointer-events-none z-0">
+    </div>
+    <div
+        class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-brand-gold/5 blur-[120px] rounded-full pointer-events-none z-0">
+    </div>
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor"></div>
+    <div id="cursor-follower" class="cursor-follower"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-4 flex justify-center">
+        <div
+            class="glass max-w-6xl w-full rounded-full px-8 py-3 flex justify-between items-center transition-all duration-500 hover:border-brand-gold/40">
+            <div class="text-2xl font-extrabold tracking-tighter text-brand-gold">AURA<span class="text-white">.</span>
+            </div>
+
+            <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
+                <a href="index.html" class="hover:text-brand-gold transition-colors">HOME</a>
+                <a href="about.html" class="hover:text-brand-gold transition-colors">ABOUT</a>
+                <a href="services.html" class="hover:text-brand-gold transition-colors">SERVICES</a>
+                <a href="portfolio.html" class="hover:text-brand-gold transition-colors">PORTFOLIO</a>
+                <a href="contact.html" class="hover:text-brand-gold transition-colors">CONTACT</a>
+            </div>
+
+            <a href="#contact"
+                class="bg-brand-gold text-brand-black px-6 py-2 rounded-full text-xs font-bold hover:bg-brand-goldLight transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(212,175,55,0.3)]">
+                FREE STRATEGY CALL
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
+        <div class="max-w-6xl w-full text-center z-10">
+            <div
+                class="inline-block px-4 py-1 border border-brand-gold/30 rounded-full text-[10px] tracking-[0.2em] text-brand-gold mb-8 uppercase font-bold bg-brand-gold/5 animate-pulse-slow">
+                Award-Winning Digital Studio
+            </div>
+
+            <h1 class="text-6xl md:text-8xl font-extrabold tracking-tight mb-8 leading-[1.1]">
+                We build <span class="gold-gradient">premium</span> digital<br class="hidden md:block"> brands that
+                <span class="italic font-serif">convert.</span>
+            </h1>
+
+            <p class="max-w-2xl mx-auto text-neutral-400 text-lg md:text-xl mb-12 font-light leading-relaxed">
+                Elevating ambitious founders through high-end branding, strategic web design, and conversion-focused
+                content creation.
+            </p>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                <a href="#contact"
+                    class="group relative px-10 py-5 bg-white text-brand-black font-bold rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95">
+                    <span class="relative z-10">Book a Free Strategy Call</span>
+                    <div
+                        class="absolute inset-0 bg-brand-gold transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    </div>
+                </a>
+                <a href="#portfolio"
+                    class="px-10 py-5 border border-white/10 rounded-2xl font-bold hover:bg-white/5 transition-all flex items-center gap-2">
+                    View Showcase <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative Floating Elements -->
+        <div
+            class="absolute top-1/4 left-10 w-24 h-24 border border-brand-gold/20 rounded-3xl rotate-12 opacity-20 floating-element">
+        </div>
+        <div
+            class="absolute bottom-1/4 right-10 w-32 h-32 border border-brand-accent/20 rounded-full opacity-20 floating-element-slow">
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 px-6 relative">
+        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+            <div class="relative group">
+                <div
+                    class="absolute -inset-4 bg-brand-gold/20 rounded-2xl blur-2xl group-hover:bg-brand-gold/30 transition-all opacity-0 group-hover:opacity-100">
+                </div>
+                <div class="relative rounded-2xl overflow-hidden aspect-[4/5] border border-white/10">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
+                        alt="Founder"
+                        class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent">
+                        <p class="text-brand-gold font-bold mb-1 tracking-widest text-xs uppercase">Julian Thorne</p>
+                        <p class="text-white text-sm opacity-80">Founder & Creative Director</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-8">
+                <div class="w-12 h-[2px] bg-brand-gold"></div>
+                <h2 class="text-4xl md:text-5xl font-bold leading-tight">Driven by Design,<br>Defined by <span
+                        class="text-brand-gold">Results</span>.</h2>
+                <p class="text-neutral-400 text-lg leading-relaxed">
+                    Founded on the belief that luxury isn't just about aesthetics—it's about intentionality. We help
+                    high-ticket service providers and innovative startups bridge the gap between their quality and their
+                    digital presence.
+                </p>
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-3xl font-bold text-white mb-2">120+</h4>
+                        <p class="text-xs text-neutral-500 uppercase tracking-widest">Global Brands</p>
+                    </div>
+                    <div>
+                        <h4 class="text-3xl font-bold text-white mb-2">$50M+</h4>
+                        <p class="text-xs text-neutral-500 uppercase tracking-widest">Revenue Generated</p>
+                    </div>
+                </div>
+                <button class="flex items-center gap-4 text-brand-gold font-bold hover:gap-6 transition-all">
+                    OUR CORE VALUES <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-32 px-6 bg-brand-charcoal/50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6">Our <span class="gold-gradient">Expertise</span></h2>
+                <p class="text-neutral-400 max-w-xl mx-auto">Complete digital solutions tailored for the next generation
+                    of premium brands.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Service Card 1 -->
+                <div class="glass p-10 rounded-[2rem] hover:border-brand-gold/50 transition-all duration-500 group">
+                    <div
+                        class="w-12 h-12 bg-brand-gold/10 rounded-xl flex items-center justify-center text-brand-gold mb-8 group-hover:bg-brand-gold group-hover:text-black transition-all">
+                        <i data-lucide="palette"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Branding</h3>
+                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">Identity systems, brand strategy, visual
+                        guidelines, and high-end positioning for premium markets.</p>
+                    <ul class="text-xs space-y-2 text-neutral-500">
+                        <li>• Custom Logo Design</li>
+                        <li>• Typography & Color Palettes</li>
+                        <li>• Brand Voice & Messaging</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 2 -->
+                <div class="glass p-10 rounded-[2rem] hover:border-brand-gold/50 transition-all duration-500 group">
+                    <div
+                        class="w-12 h-12 bg-brand-gold/10 rounded-xl flex items-center justify-center text-brand-gold mb-8 group-hover:bg-brand-gold group-hover:text-black transition-all">
+                        <i data-lucide="code"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Web Solutions</h3>
+                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">Custom, ultra-fast, and highly interactive
+                        websites designed to convert visitors into loyal clients.</p>
+                    <ul class="text-xs space-y-2 text-neutral-500">
+                        <li>• UI/UX Strategy</li>
+                        <li>• E-Commerce Excellence</li>
+                        <li>• Performance Optimization</li>
+                    </ul>
+                </div>
+
+                <!-- Service Card 3 -->
+                <div class="glass p-10 rounded-[2rem] hover:border-brand-gold/50 transition-all duration-500 group">
+                    <div
+                        class="w-12 h-12 bg-brand-gold/10 rounded-xl flex items-center justify-center text-brand-gold mb-8 group-hover:bg-brand-gold group-hover:text-black transition-all">
+                        <i data-lucide="video"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Content & Social</h3>
+                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">High-production video editing, viral
+                        short-form content, and comprehensive social management.</p>
+                    <ul class="text-xs space-y-2 text-neutral-500">
+                        <li>• Short-Form Video Strategy</li>
+                        <li>• Cinematic Brand Films</li>
+                        <li>• Aesthetic Feed Management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Pricing CTA -->
+            <div
+                class="mt-20 glass p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-8 border-dashed border-brand-gold/20">
+                <div>
+                    <h4 class="text-xl font-bold">Ready to scale your digital presence?</h4>
+                    <p class="text-neutral-400 text-sm">Packages starting from $2,500/mo. tailored for your growth.</p>
+                </div>
+                <a href="#contact" class="px-8 py-3 bg-brand-gold text-brand-black rounded-xl font-bold text-sm">View
+                    Packages</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-32 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div>
+                    <h2 class="text-4xl md:text-6xl font-bold mb-4">Selected <span class="gold-gradient">Works</span>
+                    </h2>
+                    <p class="text-neutral-400">A showcase of craftsmanship and digital performance.</p>
+                </div>
+                <div class="flex gap-4">
+                    <div class="text-right">
+                        <p class="text-xs text-neutral-500 tracking-widest uppercase mb-1">Scroll to explore</p>
+                        <div class="w-24 h-1 bg-neutral-800 rounded-full overflow-hidden">
+                            <div class="h-full bg-brand-gold w-1/3 transition-all" id="portfolio-progress"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Project 1 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-3xl aspect-video mb-6">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
+                            alt="Work"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-6 py-3 bg-white text-black font-bold rounded-full text-xs">VIEW CASE
+                                STUDY</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-1">Lumina Skincare</h3>
+                            <p class="text-neutral-500 text-sm uppercase tracking-widest">Brand Identity & Web
+                                Development</p>
+                        </div>
+                        <div class="text-brand-gold font-bold">+400% Sales</div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group cursor-pointer">
+                    <div class="relative overflow-hidden rounded-3xl aspect-video mb-6">
+                        <img src="https://images.unsplash.com/photo-1635339001026-61969015bc76?auto=format&fit=crop&w=800&q=80"
+                            alt="Work"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div
+                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="px-6 py-3 bg-white text-black font-bold rounded-full text-xs">VIEW CASE
+                                STUDY</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="text-2xl font-bold mb-1">Apex Finance</h3>
+                            <p class="text-neutral-500 text-sm uppercase tracking-widest">Digital Ecosystem & UI/UX</p>
+                        </div>
+                        <div class="text-brand-gold font-bold">Series B Funded</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-6 relative bg-brand-charcoal overflow-hidden">
+        <div
+            class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10">
+        </div>
+
+        <div class="max-w-6xl mx-auto relative z-10 grid md:grid-cols-2 gap-20">
+            <div>
+                <h2 class="text-5xl md:text-7xl font-bold mb-8 leading-tight">Let's build<br>your <span
+                        class="gold-gradient">legacy.</span></h2>
+                <p class="text-neutral-400 text-lg mb-12">Stop settling for mediocre digital presence. Let's create
+                    something your competitors will envy.</p>
+
+                <div class="space-y-6">
+                    <div
+                        class="flex items-center gap-6 p-4 glass rounded-2xl hover:border-brand-gold/30 transition-all">
+                        <div
+                            class="w-12 h-12 flex items-center justify-center bg-brand-gold/10 text-brand-gold rounded-full">
+                            <i data-lucide="mail"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-neutral-500 uppercase font-bold">Email us</p>
+                            <p class="font-bold">hello@aura.studio</p>
+                        </div>
+                    </div>
+                    <div
+                        class="flex items-center gap-6 p-4 glass rounded-2xl hover:border-brand-gold/30 transition-all">
+                        <div
+                            class="w-12 h-12 flex items-center justify-center bg-[#25D366]/10 text-[#25D366] rounded-full">
+                            <i data-lucide="message-circle"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-neutral-500 uppercase font-bold">WhatsApp</p>
+                            <p class="font-bold">+1 (555) 000-STUDIO</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass p-10 rounded-[2.5rem]">
+                <form id="contact-form" class="space-y-6">
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-neutral-400 font-bold">Full Name</label>
+                        <input type="text" placeholder="John Doe"
+                            class="w-full bg-brand-black/50 border border-white/10 rounded-xl px-6 py-4 focus:border-brand-gold outline-none transition-all text-white">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-neutral-400 font-bold">Work Email</label>
+                        <input type="email" placeholder="john@company.com"
+                            class="w-full bg-brand-black/50 border border-white/10 rounded-xl px-6 py-4 focus:border-brand-gold outline-none transition-all text-white">
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-neutral-400 font-bold">Project Goal</label>
+                        <select
+                            class="w-full bg-brand-black/50 border border-white/10 rounded-xl px-6 py-4 focus:border-brand-gold outline-none transition-all text-white appearance-none">
+                            <option>Full Digital Branding</option>
+                            <option>Website Design & Dev</option>
+                            <option>Content Production</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="text-xs uppercase tracking-widest text-neutral-400 font-bold">Message</label>
+                        <textarea rows="4" placeholder="Tell us about your vision..."
+                            class="w-full bg-brand-black/50 border border-white/10 rounded-xl px-6 py-4 focus:border-brand-gold outline-none transition-all text-white"></textarea>
+                    </div>
+                    <button type="submit"
+                        class="w-full py-5 bg-brand-gold text-brand-black font-extrabold rounded-xl hover:bg-brand-goldLight transition-all transform active:scale-95 shadow-xl shadow-brand-gold/10">
+                        SEND INQUIRY
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-20 px-6 border-t border-white/5">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
+            <div>
+                <div class="text-3xl font-extrabold tracking-tighter text-brand-gold mb-4">AURA<span
+                        class="text-white">.</span></div>
+                <p class="text-neutral-500 text-sm">© 2024 AURA Digital Studio. All rights reserved.</p>
+            </div>
+
+            <div class="flex gap-10">
+                <a href="#" class="text-neutral-400 hover:text-white transition-colors">Instagram</a>
+                <a href="#" class="text-neutral-400 hover:text-white transition-colors">LinkedIn</a>
+                <a href="#" class="text-neutral-400 hover:text-white transition-colors">Dribbble</a>
+                <a href="#" class="text-neutral-400 hover:text-white transition-colors">X / Twitter</a>
+            </div>
+
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+                class="p-4 border border-white/10 rounded-full hover:border-brand-gold transition-colors">
+                <i data-lucide="arrow-up" class="w-5 h-5 text-brand-gold"></i>
+            </button>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Custom Cursor Logic
+        const cursor = document.getElementById('custom-cursor');
+        const follower = document.getElementById('cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, {
+                x: e.clientX - 10,
+                y: e.clientY - 10,
+                duration: 0.1
+            });
+            gsap.to(follower, {
+                x: e.clientX - 20,
+                y: e.clientY - 20,
+                duration: 0.3
+            });
+        });
+
+        // Hover Effects for Custom Cursor
+        const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, .group');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                gsap.to(cursor, { scale: 3, opacity: 0.5 });
+                gsap.to(follower, { scale: 1.5, borderColor: '#D4AF37' });
+            });
+            el.addEventListener('mouseleave', () => {
+                gsap.to(cursor, { scale: 1, opacity: 1 });
+                gsap.to(follower, { scale: 1, borderColor: 'rgba(212, 175, 55, 0.5)' });
+            });
+        });
+
+        // Register GSAP Plugins
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Hero Content Reveal
+        gsap.from('#home h1', {
+            y: 100,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power4.out",
+            delay: 0.5
+        });
+
+        gsap.from('#home p', {
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+            delay: 0.8
+        });
+
+        gsap.from('#home .flex', {
+            y: 30,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+            delay: 1
+        });
+
+        // Section Title Animations
+        gsap.utils.toArray('section').forEach(section => {
+            const heading = section.querySelector('h2');
+            if (heading) {
+                gsap.from(heading, {
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 80%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power3.out"
+                });
+            }
+        });
+
+        // Service Cards Cascade
+        gsap.from('#services .glass', {
+            scrollTrigger: {
+                trigger: '#services',
+                start: "top 70%"
+            },
+            y: 60,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out"
+        });
+
+        // Portfolio Progress Tracking
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            const portSection = document.getElementById('portfolio');
+            const start = portSection.offsetTop;
+            const height = portSection.offsetHeight;
+            const progress = Math.min(Math.max((scrollPos - start) / height * 100, 0), 100);
+            document.getElementById('portfolio-progress').style.width = `${progress}%`;
+        });
+
+        // Form Submit Simulation
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = "MESSAGE SENT SUCCESSFULLY!";
+            btn.classList.replace('bg-brand-gold', 'bg-green-600');
+            btn.classList.replace('text-brand-black', 'text-white');
+
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.classList.replace('bg-green-600', 'bg-brand-gold');
+                btn.classList.replace('text-white', 'text-brand-black');
+                e.target.reset();
+            }, 3000);
+        });
+
+        // Float Animation for elements
+        gsap.to('.floating-element', {
+            y: -30,
+            rotation: 20,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        gsap.to('.floating-element-slow', {
+            y: 40,
+            scale: 1.1,
+            duration: 5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+    </script>
+</body>
+
+</html>
