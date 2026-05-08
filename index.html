@@ -25,7 +25,24 @@
 </a>
 
 <body class="antialiased">
+    <!-- Premium Loader -->
+    <div id="loader" class="fixed inset-0 bg-black z-[99999] flex items-center justify-center overflow-hidden">
 
+        <h1 id="loader-logo"
+            class="text-4xl sm:text-6xl md:text-7xl font-bold tracking-[0.25em] text-white uppercase flex">
+
+            <span class="loader-letter">X</span>
+            <span class="loader-letter">T</span>
+            <span class="loader-letter">R</span>
+            <span class="loader-letter">A</span>
+            <span class="loader-letter">C</span>
+            <span class="loader-letter">T</span>
+
+        </h1>
+        <div class="absolute bottom-80 text-[20px] uppercase tracking-[0.5em] text-white/50">
+            Creative Digital Studio
+        </div>
+    </div>
     <div id="progress-bar"></div>
     <div id="cursor"></div>
     <div id="cursor-follower"></div>
@@ -38,7 +55,7 @@
             </a>
 
             <div
-                class="hidden md:flex items-center gap-10 text-[10px] uppercase tracking-[0.2em] font-bold text-white/60">
+                class="hidden md:flex items-center gap-10 text-[13px] uppercase tracking-[0.2em] font-bold text-white/60">
                 <a href="#home" class="hover:text-white transition-colors">Home</a>
                 <a href="#services" class="hover:text-white transition-colors">Expertise</a>
                 <a href="#work" class="hover:text-white transition-colors">Selected Work</a>
@@ -47,7 +64,7 @@
 
             <div class="flex items-center gap-4">
                 <a href="#contact"
-                    class="bg-white text-black px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-[#E8D5B5] transition-all duration-500">
+                    class="bg-white text-black px-5 py-2 rounded-full text-[12px]  font-black font-bold uppercase tracking-widest hover:bg-[#E8D5B5] transition-all duration-500">
                     Book a Call
                 </a>
                 <button id="open-menu" class="md:hidden text-white text-xl"><i
@@ -576,6 +593,8 @@
             </div>
         </div>
     </footer>
+
+
     <script src="app.js"></script>
 </body>
 

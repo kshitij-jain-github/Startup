@@ -19,7 +19,22 @@ body {
 .font-serif {
     font-family: var(--font-heading);
 }
+ /* Premium Loader */
 
+#loader {
+    backdrop-filter: blur(10px);
+}
+
+.loader-letter {
+    opacity: 0;
+    transform: translateY(120px);
+    display: inline-block;
+    color: #E8D5B5;
+    text-shadow: 0 0 20px rgba(232, 213, 181, 0.3);
+    will-change: transform, opacity;
+    filter: blur(30px);
+}
+ 
 #cursor {
     width: 12px;
     height: 12px;
@@ -175,7 +190,7 @@ body {
 .orb-two {
     width: 400px;
     height: 400px;
-    background: #ffffff;
+    background: #872c2c;
     bottom: -10%;
     right: -10%;
     animation: floatOrbTwo 15s ease-in-out infinite;

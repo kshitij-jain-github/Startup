@@ -260,3 +260,39 @@ setInterval(() => {
     });
 
 }, 2500);
+
+
+
+// loader 
+// Premium Loader Animation
+
+const loaderTL = gsap.timeline();
+
+loaderTL
+
+.to(".loader-letter", {
+    y: 0,
+    opacity: 1,
+    filter: "blur(0px)",
+    stagger: 0.08,
+    duration: 1,
+    ease: "expo.out"
+})
+
+.to(".loader-letter", {
+    opacity: 0.7,
+    duration: 0.3,
+    stagger: 0.03,
+    repeat: 1,
+    yoyo: true
+})
+
+.to("#loader", {
+    opacity: 0,
+    duration: 1,
+    ease: "power3.inOut",
+    delay: 0.3,
+    onComplete: () => {
+        document.getElementById("loader").style.display = "none";
+    }
+});
