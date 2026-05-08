@@ -169,6 +169,306 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--color-accent);
         }
+
+        /* HERO BACKGROUND EFFECTS */
+
+        .hero-bg-orb {
+            position: absolute;
+            border-radius: 9999px;
+            filter: blur(90px);
+            z-index: 0;
+            opacity: 0.12;
+            pointer-events: none;
+        }
+
+        .orb-one {
+            width: 500px;
+            height: 500px;
+            background: #E8D5B5;
+            top: -10%;
+            left: -10%;
+            animation: floatOrbOne 12s ease-in-out infinite;
+        }
+
+        .orb-two {
+            width: 400px;
+            height: 400px;
+            background: #ffffff;
+            bottom: -10%;
+            right: -10%;
+            animation: floatOrbTwo 15s ease-in-out infinite;
+        }
+
+        .orb-three {
+            width: 300px;
+            height: 300px;
+            background: #C5A16F;
+            top: 40%;
+            left: 50%;
+            animation: floatOrbThree 10s ease-in-out infinite;
+        }
+
+        /* Floating Animations */
+
+        @keyframes floatOrbOne {
+            0% {
+                transform: translate(0px, 0px);
+            }
+
+            50% {
+                transform: translate(40px, -50px);
+            }
+
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+
+        @keyframes floatOrbTwo {
+            0% {
+                transform: translate(0px, 0px);
+            }
+
+            50% {
+                transform: translate(-30px, 40px);
+            }
+
+            100% {
+                transform: translate(0px, 0px);
+            }
+        }
+
+        @keyframes floatOrbThree {
+            0% {
+                transform: translate(-50%, 0px);
+            }
+
+            50% {
+                transform: translate(-45%, -40px);
+            }
+
+            100% {
+                transform: translate(-50%, 0px);
+            }
+        }
+
+        /* Grid Overlay */
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 80px 80px;
+            opacity: 0.15;
+            mask-image: radial-gradient(circle at center, black 30%, transparent 90%);
+            z-index: 0;
+        }
+
+        /* Noise Overlay */
+
+        .hero-noise {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* RESPONSIVE IMPROVEMENTS */
+
+        @media (max-width: 1024px) {
+
+            .hero-title {
+                font-size: 5rem !important;
+            }
+
+            .hero-subtext {
+                font-size: 1.1rem !important;
+                padding-inline: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            #home {
+                padding-top: 8rem;
+                min-height: auto;
+                padding-bottom: 5rem;
+            }
+
+            .hero-title {
+                font-size: 3.5rem !important;
+                line-height: 1 !important;
+                margin-bottom: 1.5rem !important;
+            }
+
+            .hero-subtext {
+                font-size: 1rem !important;
+                line-height: 1.7 !important;
+                margin-bottom: 2rem !important;
+            }
+
+            .hero-btns {
+                width: 100%;
+                padding-inline: 1rem;
+            }
+
+            .hero-btns button {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .marquee {
+                margin-top: 2rem;
+            }
+
+            .marquee-content {
+                font-size: 1rem;
+            }
+
+            .hero-bg-orb {
+                filter: blur(70px);
+                opacity: 0.09;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .hero-title {
+                font-size: 2.8rem !important;
+            }
+
+            .hero-subtext {
+                font-size: 0.95rem !important;
+            }
+
+            .marquee-content {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* HERO RESPONSIVE FIXES */
+
+        @media (max-width: 768px) {
+
+            .hero-bg-orb {
+                filter: blur(70px);
+                opacity: 0.08;
+            }
+
+            .orb-one {
+                width: 260px;
+                height: 260px;
+            }
+
+            .orb-two {
+                width: 220px;
+                height: 220px;
+            }
+
+            .orb-three {
+                width: 180px;
+                height: 180px;
+            }
+
+            .marquee-content {
+                gap: 1rem;
+                animation-duration: 18s;
+            }
+
+            .hero-grid {
+                background-size: 50px 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            #home {
+                min-height: auto;
+            }
+
+            .hero-title {
+                font-size: 2.8rem !important;
+            }
+
+            .hero-subtext {
+                font-size: 0.95rem !important;
+                line-height: 1.8;
+            }
+
+            .marquee {
+                padding-bottom: 10px;
+            }
+
+            .marquee-content {
+                font-size: 0.9rem;
+            }
+        }
+
+        #changing-text {
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+        }
+
+        /* Split Text Animation */
+
+        .hero-line {
+            transform: translateY(120%);
+            opacity: 0;
+            display: inline-block;
+            will-change: transform, opacity;
+            filter: blur(10px);
+        }
+
+        /* Smooth rendering */
+
+        .hero-title {
+            perspective: 1000px;
+            letter-spacing: -0.04em;
+        }
+
+        .hero-title span {
+            backface-visibility: hidden;
+        }
+
+        /* Cinematic Hero Reveal */
+
+        .hero-left,
+        .hero-right,
+        .hero-bottom {
+            opacity: 0;
+            filter: blur(10px);
+            will-change: transform, opacity, filter;
+        }
+
+        /* Left animation */
+
+        .hero-left {
+            transform: translateX(-120px);
+        }
+
+        /* Right animation */
+
+        .hero-right {
+            transform: translateX(120px);
+        }
+
+        /* Bottom reveal */
+
+        .hero-bottom {
+            transform: translateY(100%);
+        }
+
+        /* Smooth Rendering */
+
+        .hero-title span {
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+        }
     </style>
 </head>
 <!-- Floating WhatsApp Button -->
@@ -209,9 +509,9 @@
             </div>
         </div>
     </nav>
-    
+
     <!-- Mobile Menu -->
-    
+
     <div id="mobile-menu"
         class="fixed inset-0 bg-black/95 backdrop-blur-3xl z-[999] opacity-0 pointer-events-none transition-all duration-500 md:hidden">
 
@@ -260,57 +560,161 @@
         </div>
     </div>
 
-    <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
+    <section id="home"
+        class="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6 pt-32 sm:pt-36 pb-20">
+
+        <!-- Gradient Glow -->
         <div class="gradient-glow top-[-10%] right-[-10%] opacity-40"></div>
         <div class="gradient-glow bottom-[-10%] left-[-10%] opacity-20"></div>
 
-        <div class="max-w-6xl mx-auto px-6 text-center z-10">
+        <!-- Animated Background Orbs -->
+        <div class="hero-bg-orb orb-one"></div>
+        <div class="hero-bg-orb orb-two"></div>
+        <div class="hero-bg-orb orb-three"></div>
+
+        <!-- Grid Overlay -->
+        <div class="hero-grid"></div>
+
+        <!-- Noise Texture -->
+        <div class="hero-noise"></div>
+
+        <!-- Main Content -->
+        <div class="w-full max-w-6xl mx-auto text-center relative z-10">
+
+            <!-- Badge -->
             <div
-                class="inline-flex items-center gap-2 px-4 py-1.5 border border-white/10 rounded-full mb-10 backdrop-blur-md">
+                class="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-5 py-2 border border-white/10 rounded-full mb-8 sm:mb-10 backdrop-blur-md max-w-full">
+
                 <span class="relative flex h-2 w-2">
-                    <span
-                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E8D5B5] opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-[#E8D5B5]"></span>
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E8D5B5] opacity-75">
+                    </span>
+
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-[#E8D5B5]">
+                    </span>
                 </span>
-                <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-white/50">Founder-Led Digital
-                    Studio</span>
+
+                <span
+                    class="text-[9px] sm:text-[10px] uppercase tracking-[0.2em] sm:tracking-[0.3em] font-bold text-white/50 whitespace-nowrap">
+                    Founder-Led Digital Studio
+                </span>
+
             </div>
 
-            <h1 class="hero-title text-6xl md:text-9xl font-bold tracking-tighter mb-10 leading-[0.9] opacity-0">
-                Building <span class="font-serif italic text-[#E8D5B5]">premium</span> <br>
-                digital brands.
-            </h1>
+            <!-- Heading -->
+            <h1
+                class="hero-title text-[2rem] leading-[0.95] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter mb-6 sm:mb-10">
 
-            <p class="hero-subtext max-w-2xl mx-auto text-lg md:text-xl text-white/50 mb-14 leading-relaxed opacity-0">
-                High-end strategy, elite design, and scaling solutions for founders who refuse to be second best.
+                <!-- Line 1 -->
+                <div class="overflow-hidden">
+                    <span class="hero-left py-2 inline-block">
+                        Building   truly
+                    </span>
+                </div>
+
+                <!-- Line 2 -->
+                <div class="overflow-hidden flex justify-center items-center gap-3">
+
+                  
+
+                    <span id="text-wrapper"
+                        class="relative inline-flex justify-center items-center align-middle overflow-hidden">
+
+                        <span id="changing-text"
+                            class="hero-right py-2 inline-block font-serif italic text-[#E8D5B5] whitespace-nowrap">
+
+                            cinematic
+
+                        </span>
+
+                    </span>
+
+                </div>
+
+                <!-- Line 3 -->
+                <div class="overflow-hidden">
+                    <span class="hero-bottom py-2 inline-block">
+                        digital brands.
+                    </span>
+                </div>
+
+            </h1>
+            <!-- Subtext -->
+            <p
+                class="hero-subtext max-w-2xl mx-auto text-sm sm:text-base md:text-lg lg:text-xl text-white/50 mb-10 sm:mb-14 leading-relaxed opacity-0 px-2 sm:px-0">
+
+                High-end strategy, elite design, and scaling solutions
+                for founders who refuse to be second best.
+
             </p>
 
-            <div class="hero-btns flex flex-col md:flex-row gap-5 justify-center items-center opacity-0">
+            <!-- Buttons -->
+            <div
+                class="hero-btns flex flex-col sm:flex-row gap-4 sm:gap-5 justify-center items-center opacity-0 w-full max-w-xl mx-auto">
+
+                <!-- Primary Button -->
                 <button
-                    class="group relative px-10 py-5 bg-[#E8D5B5] text-black rounded-full font-black uppercase tracking-widest text-xs overflow-hidden transition-all hover:scale-105">
-                    <span class="relative z-10">Book Strategy Call</span>
+                    class="group relative w-full sm:w-auto min-w-0 sm:min-w-[230px] px-6 sm:px-10 py-4 sm:py-5 bg-[#E8D5B5] text-black rounded-full font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] text-[10px] sm:text-xs overflow-hidden transition-all duration-500 hover:scale-105 flex items-center justify-center">
+
+                    <span class="relative z-10 whitespace-nowrap">
+                        Book Strategy Call
+                    </span>
+
                     <div
                         class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500">
                     </div>
+
                 </button>
+
+                <!-- Secondary Button -->
                 <button
-                    class="px-10 py-5 border border-white/10 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all">
-                    View Portfolio
+                    class="w-full sm:w-auto min-w-0 sm:min-w-[230px] px-6 sm:px-10 py-4 sm:py-5 border border-white/10 rounded-full font-black uppercase tracking-[0.15em] sm:tracking-[0.2em] text-[10px] sm:text-xs hover:bg-white hover:text-black transition-all duration-500 flex items-center justify-center">
+
+                    <span class="whitespace-nowrap">
+                        View Portfolio
+                    </span>
+
                 </button>
+
             </div>
 
-            <div class="mt-32 pt-20 border-t border-white/5">
+            <!-- Marquee -->
+            <div class="mt-16 sm:mt-24 md:mt-32 pt-10 sm:pt-16 md:pt-20 border-t border-white/5 overflow-hidden">
+
                 <div
-                    class="marquee text-white/20 font-black text-2xl md:text-4xl uppercase tracking-tighter opacity-50 italic">
+                    class="marquee text-white font-black text-lg sm:text-2xl md:text-3xl lg:text-4xl uppercase tracking-tight opacity-50 italic">
+
                     <div class="marquee-content">
-                        <span>Luxe Branding</span> • <span>Elite Development</span> • <span>Social Growth</span> •
-                        <span>Content Mastery</span> • <span>Strategy Advisory</span> •
-                        <span>Luxe Branding</span> • <span>Elite Development</span> • <span>Social Growth</span> •
-                        <span>Content Mastery</span> • <span>Strategy Advisory</span> •
+
+                        <span>Luxe Branding</span>
+                        •
+                        <span>Elite Development</span>
+                        •
+                        <span>Social Growth</span>
+                        •
+                        <span>Content Mastery</span>
+                        •
+                        <span>Strategy Advisory</span>
+                        •
+
+                        <span>Luxe Branding</span>
+                        •
+                        <span>Elite Development</span>
+                        •
+                        <span>Social Growth</span>
+                        •
+                        <span>Content Mastery</span>
+                        •
+                        <span>Strategy Advisory</span>
+                        •
+
                     </div>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
 
     <!-- Services Section (Bento Grid) -->
@@ -652,11 +1056,52 @@
             });
 
             // Hero Animations
-            const tl = gsap.timeline();
-            tl.to('.hero-title', { opacity: 1, y: 0, duration: 1.5, ease: "expo.out" })
-                .to('.hero-subtext', { opacity: 1, y: 0, duration: 1.2, ease: "expo.out" }, "-=1.2")
-                .to('.hero-btns', { opacity: 1, y: 0, duration: 1, ease: "expo.out" }, "-=1");
+            // Cinematic Split Text Reveal
 
+            // Premium Cinematic Hero Reveal
+
+            const heroTL = gsap.timeline();
+
+            heroTL
+
+                .to(".hero-left", {
+                    x: 0,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    duration: 1.4,
+                    stagger: 0.12,
+                    ease: "expo.out"
+                })
+
+                .to(".hero-right", {
+                    x: 0,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    duration: 1.6,
+                    ease: "expo.out"
+                }, "-=1")
+
+                .to(".hero-bottom", {
+                    y: 0,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    duration: 1.4,
+                    ease: "expo.out"
+                }, "-=1.1")
+
+                .to(".hero-subtext", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1.2,
+                    ease: "expo.out"
+                }, "-=0.8")
+
+                .to(".hero-btns", {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "expo.out"
+                }, "-=0.8");
             // Scroll Progress
             gsap.to('#progress-bar', {
                 width: '100%',
@@ -695,7 +1140,22 @@
                     }
                 });
             });
+            // Mouse Reactive Background
+            document.addEventListener("mousemove", (e) => {
 
+                gsap.to(".orb-one", {
+                    x: e.clientX * 0.02,
+                    y: e.clientY * 0.02,
+                    duration: 3
+                });
+
+                gsap.to(".orb-two", {
+                    x: -e.clientX * 0.015,
+                    y: -e.clientY * 0.015,
+                    duration: 3
+                });
+
+            });
             // Reveal Headlines
             gsap.utils.toArray('h3').forEach(h3 => {
                 gsap.from(h3, {
@@ -760,7 +1220,80 @@
             link.addEventListener('click', () => {
                 menuTimeline.reverse();
             });
-        });</script>
+        });
+        // Running Hero Text Animation
+        // Premium Running Word Reveal
+
+        const words = [
+            "cinematic",
+            "premium",
+            "immersive",
+            "luxury",
+            "modern",
+            "iconic"
+        ];
+
+        const changingText = document.getElementById("changing-text");
+        const textWrapper = document.getElementById("text-wrapper");
+
+        let wordIndex = 0;
+
+        // Dynamic Width Fix
+        const measure = document.createElement("span");
+
+        measure.style.position = "absolute";
+        measure.style.visibility = "hidden";
+        measure.style.whiteSpace = "nowrap";
+        measure.style.fontSize = getComputedStyle(changingText).fontSize;
+        measure.style.fontFamily = getComputedStyle(changingText).fontFamily;
+
+        document.body.appendChild(measure);
+
+        let maxWidth = 0;
+
+        words.forEach(word => {
+            measure.innerText = word;
+            maxWidth = Math.max(maxWidth, measure.offsetWidth);
+        });
+
+        textWrapper.style.width = `${maxWidth + 20}px`;
+
+        // Cinematic Word Animation
+        setInterval(() => {
+
+            gsap.to(changingText, {
+                x: 100,
+                opacity: 0,
+                filter: "blur(10px)",
+                duration: 0.5,
+                ease: "power3.in",
+                onComplete: () => {
+
+                    wordIndex = (wordIndex + 1) % words.length;
+
+                    changingText.textContent = words[wordIndex];
+
+                    gsap.fromTo(
+                        changingText,
+                        {
+                            x: -100,
+                            opacity: 0,
+                            filter: "blur(10px)"
+                        },
+                        {
+                            x: 0,
+                            opacity: 1,
+                            filter: "blur(0px)",
+                            duration: 1,
+                            ease: "expo.out"
+                        }
+                    );
+
+                }
+            });
+
+        }, 2500);
+    </script>
 </body>
 
 </html>
