@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +10,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         :root {
             --color-bg: #050505;
             --color-card: #0F0F0F;
-            --color-accent: #E8D5B5; /* Gold/Beige */
+            --color-accent: #E8D5B5;
+            /* Gold/Beige */
             --color-accent-dark: #C5A16F;
             --font-main: 'Inter', sans-serif;
             --font-heading: 'Playfair Display', serif;
@@ -30,7 +34,9 @@
             cursor: none;
         }
 
-        .font-serif { font-family: var(--font-heading); }
+        .font-serif {
+            font-family: var(--font-heading);
+        }
 
         #cursor {
             width: 12px;
@@ -89,8 +95,13 @@
         }
 
         @keyframes scroll {
-            from { transform: translateX(0); }
-            to { transform: translateX(-100%); }
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
         }
 
         .bento-card {
@@ -104,7 +115,7 @@
         .bento-card:hover {
             border-color: var(--color-accent);
             transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         #progress-bar {
@@ -122,12 +133,51 @@
             transform: translateX(0);
         }
 
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
+        /* Apple Style Mobile Menu */
+
+        .mobile-link {
+            position: relative;
+        }
+
+        .mobile-link-text {
+            transform: translateY(120%);
+            opacity: 0;
+        }
+
+        .mobile-link:hover {
+            color: #E8D5B5;
+        }
+
+        #mobile-menu {
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+        }
+
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-accent);
+        }
     </style>
 </head>
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/919999999999" target="_blank"
+    class="fixed bottom-6 right-6 z-[9999] w-16 h-16 rounded-full bg-[#25D366] flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300 animate-bounce">
+
+    <i class="fa-brands fa-whatsapp text-white text-3xl"></i>
+</a>
+
 <body class="antialiased">
 
     <div id="progress-bar"></div>
@@ -140,8 +190,9 @@
             <a href="#" class="text-xl font-bold tracking-tighter flex items-center gap-2">
                 <span class="text-accent" style="color: var(--color-accent);">X</span>TRACT
             </a>
-            
-            <div class="hidden md:flex items-center gap-10 text-[10px] uppercase tracking-[0.2em] font-bold text-white/60">
+
+            <div
+                class="hidden md:flex items-center gap-10 text-[10px] uppercase tracking-[0.2em] font-bold text-white/60">
                 <a href="#home" class="hover:text-white transition-colors">Home</a>
                 <a href="#services" class="hover:text-white transition-colors">Expertise</a>
                 <a href="#work" class="hover:text-white transition-colors">Selected Work</a>
@@ -149,51 +200,113 @@
             </div>
 
             <div class="flex items-center gap-4">
-                <a href="#contact" class="bg-white text-black px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-[#E8D5B5] transition-all duration-500">
+                <a href="#contact"
+                    class="bg-white text-black px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-[#E8D5B5] transition-all duration-500">
                     Book a Call
                 </a>
-                <button class="md:hidden text-white text-xl"><i class="fa-solid fa-bars-staggered"></i></button>
+                <button id="open-menu" class="md:hidden text-white text-xl"><i
+                        class="fa-solid fa-bars-staggered"></i></button>
             </div>
         </div>
     </nav>
+    
+    <!-- Mobile Menu -->
+    
+    <div id="mobile-menu"
+        class="fixed inset-0 bg-black/95 backdrop-blur-3xl z-[999] opacity-0 pointer-events-none transition-all duration-500 md:hidden">
+
+        <!-- Top Bar -->
+        <div class="flex justify-between items-center px-8 py-8 border-b border-white/10">
+
+            <h2 class="text-2xl font-black tracking-tighter">
+                <span class="text-[#E8D5B5]">X</span>TRACT
+            </h2>
+
+            <button id="close-menu"
+                class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white/10 transition-all duration-300">
+
+                <i class="fa-solid fa-xmark text-xl"></i>
+
+            </button>
+        </div>
+
+        <!-- Nav Links -->
+        <div class="h-[85vh] flex flex-col justify-center px-10">
+
+            <div class="mobile-nav-links flex flex-col gap-8">
+
+                <a href="#home" class="mobile-link text-5xl font-bold tracking-tight text-white/90 overflow-hidden">
+                    <span class="mobile-link-text block">Home</span>
+                </a>
+
+                <a href="#services" class="mobile-link text-5xl font-bold tracking-tight text-white/90 overflow-hidden">
+                    <span class="mobile-link-text block">Expertise</span>
+                </a>
+
+                <a href="#work" class="mobile-link text-5xl font-bold tracking-tight text-white/90 overflow-hidden">
+                    <span class="mobile-link-text block">Work</span>
+                </a>
+
+                <a href="#about" class="mobile-link text-5xl font-bold tracking-tight text-white/90 overflow-hidden">
+                    <span class="mobile-link-text block">About</span>
+                </a>
+
+                <a href="#contact" class="mobile-link text-5xl font-bold tracking-tight text-white/90 overflow-hidden">
+                    <span class="mobile-link-text block">Contact</span>
+                </a>
+
+            </div>
+
+        </div>
+    </div>
 
     <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
         <div class="gradient-glow top-[-10%] right-[-10%] opacity-40"></div>
         <div class="gradient-glow bottom-[-10%] left-[-10%] opacity-20"></div>
-        
+
         <div class="max-w-6xl mx-auto px-6 text-center z-10">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 border border-white/10 rounded-full mb-10 backdrop-blur-md">
+            <div
+                class="inline-flex items-center gap-2 px-4 py-1.5 border border-white/10 rounded-full mb-10 backdrop-blur-md">
                 <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E8D5B5] opacity-75"></span>
+                    <span
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E8D5B5] opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-[#E8D5B5]"></span>
                 </span>
-                <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-white/50">Founder-Led Digital Studio</span>
+                <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-white/50">Founder-Led Digital
+                    Studio</span>
             </div>
-            
+
             <h1 class="hero-title text-6xl md:text-9xl font-bold tracking-tighter mb-10 leading-[0.9] opacity-0">
                 Building <span class="font-serif italic text-[#E8D5B5]">premium</span> <br>
                 digital brands.
             </h1>
-            
+
             <p class="hero-subtext max-w-2xl mx-auto text-lg md:text-xl text-white/50 mb-14 leading-relaxed opacity-0">
                 High-end strategy, elite design, and scaling solutions for founders who refuse to be second best.
             </p>
 
             <div class="hero-btns flex flex-col md:flex-row gap-5 justify-center items-center opacity-0">
-                <button class="group relative px-10 py-5 bg-[#E8D5B5] text-black rounded-full font-black uppercase tracking-widest text-xs overflow-hidden transition-all hover:scale-105">
+                <button
+                    class="group relative px-10 py-5 bg-[#E8D5B5] text-black rounded-full font-black uppercase tracking-widest text-xs overflow-hidden transition-all hover:scale-105">
                     <span class="relative z-10">Book Strategy Call</span>
-                    <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                    <div
+                        class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                    </div>
                 </button>
-                <button class="px-10 py-5 border border-white/10 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all">
+                <button
+                    class="px-10 py-5 border border-white/10 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all">
                     View Portfolio
                 </button>
             </div>
 
             <div class="mt-32 pt-20 border-t border-white/5">
-                <div class="marquee text-white/20 font-black text-2xl md:text-4xl uppercase tracking-tighter opacity-50 italic">
+                <div
+                    class="marquee text-white/20 font-black text-2xl md:text-4xl uppercase tracking-tighter opacity-50 italic">
                     <div class="marquee-content">
-                        <span>Luxe Branding</span> • <span>Elite Development</span> • <span>Social Growth</span> • <span>Content Mastery</span> • <span>Strategy Advisory</span> •
-                        <span>Luxe Branding</span> • <span>Elite Development</span> • <span>Social Growth</span> • <span>Content Mastery</span> • <span>Strategy Advisory</span> •
+                        <span>Luxe Branding</span> • <span>Elite Development</span> • <span>Social Growth</span> •
+                        <span>Content Mastery</span> • <span>Strategy Advisory</span> •
+                        <span>Luxe Branding</span> • <span>Elite Development</span> • <span>Social Growth</span> •
+                        <span>Content Mastery</span> • <span>Strategy Advisory</span> •
                     </div>
                 </div>
             </div>
@@ -205,44 +318,55 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="mb-24 space-y-4">
                 <h2 class="text-[11px] uppercase tracking-[0.5em] text-[#E8D5B5] font-black">Our Expertise</h2>
-                <h3 class="text-4xl md:text-7xl font-bold tracking-tighter">Everything you need <br> to scale to 7-figures.</h3>
+                <h3 class="text-4xl md:text-7xl font-bold tracking-tighter">Everything you need <br> to scale to
+                    7-figures.</h3>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-6 md:grid-rows-2 gap-5 h-auto md:h-[900px]">
                 <!-- Branding Card -->
-                <div class="md:col-span-4 md:row-span-1 bento-card p-12 rounded-[2.5rem] flex flex-col justify-between group">
+                <div
+                    class="md:col-span-4 md:row-span-1 bento-card p-12 rounded-[2.5rem] flex flex-col justify-between group">
                     <div class="flex justify-between items-start">
-                        <div class="w-16 h-16 rounded-2xl bg-[#E8D5B5]/10 flex items-center justify-center text-[#E8D5B5]">
+                        <div
+                            class="w-16 h-16 rounded-2xl bg-[#E8D5B5]/10 flex items-center justify-center text-[#E8D5B5]">
                             <i class="fa-solid fa-gem text-2xl"></i>
                         </div>
-                        <i class="fa-solid fa-arrow-up-right text-xl text-white/10 group-hover:text-[#E8D5B5] transition-colors"></i>
+                        <i
+                            class="fa-solid fa-arrow-up-right text-xl text-white/10 group-hover:text-[#E8D5B5] transition-colors"></i>
                     </div>
                     <div>
                         <h4 class="text-4xl font-bold mb-4">Branding & Identity</h4>
-                        <p class="text-white/40 max-w-md text-lg">We define your visual soul. From custom typography to psychological brand positioning that demands premium pricing.</p>
+                        <p class="text-white/40 max-w-md text-lg">We define your visual soul. From custom typography to
+                            psychological brand positioning that demands premium pricing.</p>
                     </div>
                 </div>
 
                 <!-- Development Card -->
-                <div class="md:col-span-2 md:row-span-2 bento-card p-12 rounded-[2.5rem] flex flex-col justify-between group bg-gradient-to-b from-[#0F0F0F] to-[#050505]">
+                <div
+                    class="md:col-span-2 md:row-span-2 bento-card p-12 rounded-[2.5rem] flex flex-col justify-between group bg-gradient-to-b from-[#0F0F0F] to-[#050505]">
                     <div class="w-16 h-16 rounded-2xl bg-[#E8D5B5]/10 flex items-center justify-center text-[#E8D5B5]">
                         <i class="fa-solid fa-code text-2xl"></i>
                     </div>
                     <div class="space-y-10">
                         <div>
                             <h4 class="text-4xl font-bold mb-4 leading-tight">Elite <br> Development</h4>
-                            <p class="text-white/40 text-lg">Lightning-fast performance. Webflow, Framer, and custom code integrations.</p>
+                            <p class="text-white/40 text-lg">Lightning-fast performance. Webflow, Framer, and custom
+                                code integrations.</p>
                         </div>
                         <ul class="space-y-3">
-                            <li class="flex items-center gap-3 text-sm text-white/60"><i class="fa-solid fa-check text-[#E8D5B5]"></i> SEO Mastery</li>
-                            <li class="flex items-center gap-3 text-sm text-white/60"><i class="fa-solid fa-check text-[#E8D5B5]"></i> CRM Integration</li>
-                            <li class="flex items-center gap-3 text-sm text-white/60"><i class="fa-solid fa-check text-[#E8D5B5]"></i> 99.9% Lighthouse</li>
+                            <li class="flex items-center gap-3 text-sm text-white/60"><i
+                                    class="fa-solid fa-check text-[#E8D5B5]"></i> SEO Mastery</li>
+                            <li class="flex items-center gap-3 text-sm text-white/60"><i
+                                    class="fa-solid fa-check text-[#E8D5B5]"></i> CRM Integration</li>
+                            <li class="flex items-center gap-3 text-sm text-white/60"><i
+                                    class="fa-solid fa-check text-[#E8D5B5]"></i> 99.9% Lighthouse</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- Content Card -->
-                <div class="md:col-span-2 md:row-span-1 bento-card p-10 rounded-[2.5rem] flex flex-col justify-between group">
+                <div
+                    class="md:col-span-2 md:row-span-1 bento-card p-10 rounded-[2.5rem] flex flex-col justify-between group">
                     <div class="w-16 h-16 rounded-2xl bg-[#E8D5B5]/10 flex items-center justify-center text-[#E8D5B5]">
                         <i class="fa-solid fa-video text-2xl"></i>
                     </div>
@@ -253,7 +377,8 @@
                 </div>
 
                 <!-- Strategy Card -->
-                <div class="md:col-span-2 md:row-span-1 bento-card p-10 rounded-[2.5rem] flex flex-col justify-between group border-dashed border-white/20">
+                <div
+                    class="md:col-span-2 md:row-span-1 bento-card p-10 rounded-[2.5rem] flex flex-col justify-between group border-dashed border-white/20">
                     <div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-white">
                         <i class="fa-solid fa-chess-knight text-2xl"></i>
                     </div>
@@ -271,7 +396,8 @@
             <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-10">
                 <div class="max-w-2xl">
                     <h2 class="text-[11px] uppercase tracking-[0.5em] text-[#E8D5B5] font-black mb-6">Case Studies</h2>
-                    <h3 class="text-5xl md:text-8xl font-bold tracking-tighter">Selected <span class="font-serif italic text-[#E8D5B5]">Works</span></h3>
+                    <h3 class="text-5xl md:text-8xl font-bold tracking-tighter">Selected <span
+                            class="font-serif italic text-[#E8D5B5]">Works</span></h3>
                 </div>
                 <div class="text-white/40 text-lg max-w-xs border-l border-white/10 pl-8">
                     We only work with 3 clients at a time to ensure obsessive attention to detail.
@@ -282,14 +408,20 @@
                 <!-- Project 1 -->
                 <div class="project-item group cursor-pointer">
                     <div class="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] mb-10">
-                        <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&q=80&w=1000" alt="Work 1" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                            <span class="bg-white text-black px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest translate-y-10 group-hover:translate-y-0 transition-transform duration-500">View Experience</span>
+                        <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&q=80&w=1000"
+                            alt="Work 1"
+                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+                        <div
+                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                            <span
+                                class="bg-white text-black px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest translate-y-10 group-hover:translate-y-0 transition-transform duration-500">View
+                                Experience</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-end">
                         <div class="space-y-2">
-                            <span class="text-[10px] uppercase tracking-widest text-white/30 font-bold">Fintech • Branding • Web Experience</span>
+                            <span class="text-[10px] uppercase tracking-widest text-white/30 font-bold">Fintech •
+                                Branding • Web Experience</span>
                             <h4 class="text-3xl font-bold">Solaris Capital</h4>
                         </div>
                         <div class="text-right">
@@ -302,14 +434,20 @@
                 <!-- Project 2 -->
                 <div class="project-item group cursor-pointer mt-0 md:mt-32">
                     <div class="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] mb-10">
-                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000" alt="Work 2" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
-                            <span class="bg-white text-black px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest translate-y-10 group-hover:translate-y-0 transition-transform duration-500">View Experience</span>
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000"
+                            alt="Work 2"
+                            class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+                        <div
+                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                            <span
+                                class="bg-white text-black px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest translate-y-10 group-hover:translate-y-0 transition-transform duration-500">View
+                                Experience</span>
                         </div>
                     </div>
                     <div class="flex justify-between items-end">
                         <div class="space-y-2">
-                            <span class="text-[10px] uppercase tracking-widest text-white/30 font-bold">E-Commerce • Content • Strategy</span>
+                            <span class="text-[10px] uppercase tracking-widest text-white/30 font-bold">E-Commerce •
+                                Content • Strategy</span>
                             <h4 class="text-3xl font-bold">Aether Fragrance</h4>
                         </div>
                         <div class="text-right">
@@ -326,48 +464,70 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-20">
                 <h2 class="text-[11px] uppercase tracking-[0.5em] text-[#E8D5B5] font-black mb-6">Pricing Packages</h2>
-                <h3 class="text-4xl md:text-6xl font-bold tracking-tighter">Invest in <span class="font-serif italic text-[#E8D5B5]">Longevity.</span></h3>
+                <h3 class="text-4xl md:text-6xl font-bold tracking-tighter">Invest in <span
+                        class="font-serif italic text-[#E8D5B5]">Longevity.</span></h3>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Tier 1 -->
                 <div class="glass p-10 rounded-[3rem] border-white/5 flex flex-col justify-between h-full">
                     <div>
-                        <div class="text-sm font-bold text-[#E8D5B5] mb-2 uppercase tracking-widest">Growth Starter</div>
-                        <div class="text-5xl font-bold mb-8">$2,900<span class="text-sm font-normal text-white/20">/mo</span></div>
+                        <div class="text-sm font-bold text-[#E8D5B5] mb-2 uppercase tracking-widest">Growth Starter
+                        </div>
+                        <div class="text-5xl font-bold mb-8">$2,900<span
+                                class="text-sm font-normal text-white/20">/mo</span></div>
                         <ul class="space-y-5 mb-12">
-                            <li class="flex items-center gap-3 text-sm text-white/50"><i class="fa-solid fa-check text-[#E8D5B5]"></i> Social Media Mgmt</li>
-                            <li class="flex items-center gap-3 text-sm text-white/50"><i class="fa-solid fa-check text-[#E8D5B5]"></i> 8 Premium Reels</li>
-                            <li class="flex items-center gap-3 text-sm text-white/50"><i class="fa-solid fa-check text-[#E8D5B5]"></i> Strategy Consultation</li>
+                            <li class="flex items-center gap-3 text-sm text-white/50"><i
+                                    class="fa-solid fa-check text-[#E8D5B5]"></i> Social Media Mgmt</li>
+                            <li class="flex items-center gap-3 text-sm text-white/50"><i
+                                    class="fa-solid fa-check text-[#E8D5B5]"></i> 8 Premium Reels</li>
+                            <li class="flex items-center gap-3 text-sm text-white/50"><i
+                                    class="fa-solid fa-check text-[#E8D5B5]"></i> Strategy Consultation</li>
                         </ul>
                     </div>
-                    <button class="w-full py-5 rounded-full border border-white/10 font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white/5 transition-colors">Choose Plan</button>
+                    <button
+                        class="w-full py-5 rounded-full border border-white/10 font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white/5 transition-colors">Choose
+                        Plan</button>
                 </div>
 
                 <!-- Tier 2 -->
                 <div class="p-10 rounded-[3rem] bg-[#E8D5B5] text-black relative scale-105 z-10">
-                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-black text-white text-[9px] px-6 py-1 rounded-full font-black uppercase tracking-widest">Most Popular</div>
+                    <div
+                        class="absolute -top-4 left-1/2 -translate-x-1/2 bg-black text-white text-[9px] px-6 py-1 rounded-full font-black uppercase tracking-widest">
+                        Most Popular</div>
                     <div>
                         <div class="text-sm font-bold mb-2 uppercase tracking-widest">The Studio Partner</div>
-                        <div class="text-5xl font-bold mb-8">$5,500<span class="text-sm font-normal text-black/40">/mo</span></div>
+                        <div class="text-5xl font-bold mb-8">$5,500<span
+                                class="text-sm font-normal text-black/40">/mo</span></div>
                         <ul class="space-y-5 mb-12">
-                            <li class="flex items-center gap-3 text-sm font-bold"><i class="fa-solid fa-check"></i> Full Visual Identity</li>
-                            <li class="flex items-center gap-3 text-sm font-bold"><i class="fa-solid fa-check"></i> Framer Website Build</li>
-                            <li class="flex items-center gap-3 text-sm font-bold"><i class="fa-solid fa-check"></i> 16 Premium Shortform</li>
-                            <li class="flex items-center gap-3 text-sm font-bold"><i class="fa-solid fa-check"></i> Priority Support</li>
+                            <li class="flex items-center gap-3 text-sm font-bold"><i class="fa-solid fa-check"></i> Full
+                                Visual Identity</li>
+                            <li class="flex items-center gap-3 text-sm font-bold"><i class="fa-solid fa-check"></i>
+                                Framer Website Build</li>
+                            <li class="flex items-center gap-3 text-sm font-bold"><i class="fa-solid fa-check"></i> 16
+                                Premium Shortform</li>
+                            <li class="flex items-center gap-3 text-sm font-bold"><i class="fa-solid fa-check"></i>
+                                Priority Support</li>
                         </ul>
                     </div>
-                    <button class="w-full py-5 rounded-full bg-black text-white font-bold text-[10px] uppercase tracking-[0.2em] hover:opacity-80 transition-all">Start Scaling</button>
+                    <button
+                        class="w-full py-5 rounded-full bg-black text-white font-bold text-[10px] uppercase tracking-[0.2em] hover:opacity-80 transition-all">Start
+                        Scaling</button>
                 </div>
 
                 <!-- Tier 3 -->
                 <div class="glass p-10 rounded-[3rem] border-white/5 flex flex-col justify-between h-full">
                     <div>
-                        <div class="text-sm font-bold text-[#E8D5B5] mb-2 uppercase tracking-widest">Enterprise Custom</div>
-                        <div class="text-5xl font-bold mb-8">$10k+<span class="text-sm font-normal text-white/20">/mo</span></div>
-                        <p class="text-white/40 mb-10 text-sm italic">For brands generating $500k+ in revenue looking for full ecosystem transformation.</p>
+                        <div class="text-sm font-bold text-[#E8D5B5] mb-2 uppercase tracking-widest">Enterprise Custom
+                        </div>
+                        <div class="text-5xl font-bold mb-8">$10k+<span
+                                class="text-sm font-normal text-white/20">/mo</span></div>
+                        <p class="text-white/40 mb-10 text-sm italic">For brands generating $500k+ in revenue looking
+                            for full ecosystem transformation.</p>
                     </div>
-                    <button class="w-full py-5 rounded-full border border-white/10 font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white/5 transition-colors">Book Discovery</button>
+                    <button
+                        class="w-full py-5 rounded-full border border-white/10 font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white/5 transition-colors">Book
+                        Discovery</button>
                 </div>
             </div>
         </div>
@@ -378,19 +538,25 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
                 <div class="relative">
                     <div class="rounded-[3rem] overflow-hidden aspect-[4/5] bg-neutral-900">
-                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800" alt="Founder" class="w-full h-full object-cover grayscale">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800"
+                            alt="Founder" class="w-full h-full object-cover grayscale">
                     </div>
                     <div class="absolute -bottom-10 -right-10 glass p-8 rounded-3xl hidden md:block w-72">
-                        <div class="text-2xl font-serif italic text-[#E8D5B5] mb-4">"Aesthetics is the first layer of trust."</div>
-                        <div class="text-[10px] uppercase font-bold tracking-widest text-white/40">— Marcus Thorne, Founder</div>
+                        <div class="text-2xl font-serif italic text-[#E8D5B5] mb-4">"Aesthetics is the first layer of
+                            trust."</div>
+                        <div class="text-[10px] uppercase font-bold tracking-widest text-white/40">— Marcus Thorne,
+                            Founder</div>
                     </div>
                 </div>
                 <div class="space-y-10">
-                    <h2 class="text-5xl md:text-7xl font-bold tracking-tighter">Founder-Led <br> <span class="font-serif italic text-[#E8D5B5]">Obsession.</span></h2>
+                    <h2 class="text-5xl md:text-7xl font-bold tracking-tighter">Founder-Led <br> <span
+                            class="font-serif italic text-[#E8D5B5]">Obsession.</span></h2>
                     <p class="text-white/50 text-xl leading-relaxed">
-                        After scaling three startups to 8-figure exits, I realized that modern agencies are broken. They sell hours, not outcomes. 
+                        After scaling three startups to 8-figure exits, I realized that modern agencies are broken. They
+                        sell hours, not outcomes.
                         <br><br>
-                        Xtract was born to be the antidote. We operate as a tactical partner, fusing high-end art with ruthless business logic.
+                        Xtract was born to be the antidote. We operate as a tactical partner, fusing high-end art with
+                        ruthless business logic.
                     </p>
                     <div class="flex gap-10 border-t border-white/10 pt-10">
                         <div>
@@ -399,7 +565,8 @@
                         </div>
                         <div>
                             <div class="text-4xl font-bold">50+</div>
-                            <div class="text-[9px] uppercase tracking-widest text-white/30 font-black">Brands Built</div>
+                            <div class="text-[9px] uppercase tracking-widest text-white/30 font-black">Brands Built
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -411,22 +578,30 @@
     <section id="contact" class="py-32 relative">
         <div class="max-w-5xl mx-auto px-6">
             <div class="glass p-12 md:p-20 rounded-[4rem] text-center border-white/10">
-                <h2 class="text-5xl md:text-8xl font-bold tracking-tighter mb-10">Let's build <br> something <span class="font-serif italic text-[#E8D5B5]">iconic.</span></h2>
-                
+                <h2 class="text-5xl md:text-8xl font-bold tracking-tighter mb-10">Let's build <br> something <span
+                        class="font-serif italic text-[#E8D5B5]">iconic.</span></h2>
+
                 <form class="max-w-xl mx-auto space-y-6 mt-16 text-left" onsubmit="event.preventDefault()">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <input type="text" placeholder="Full Name" class="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-[#E8D5B5] transition-colors w-full">
-                        <input type="email" placeholder="Email Address" class="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-[#E8D5B5] transition-colors w-full">
+                        <input type="text" placeholder="Full Name"
+                            class="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-[#E8D5B5] transition-colors w-full">
+                        <input type="email" placeholder="Email Address"
+                            class="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-[#E8D5B5] transition-colors w-full">
                     </div>
-                    <textarea placeholder="Tell us about your project vision..." rows="4" class="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-[#E8D5B5] transition-colors w-full"></textarea>
-                    
-                    <button class="w-full py-6 bg-[#E8D5B5] text-black font-black uppercase tracking-widest text-xs rounded-full hover:scale-[0.98] transition-transform">
+                    <textarea placeholder="Tell us about your project vision..." rows="4"
+                        class="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-[#E8D5B5] transition-colors w-full"></textarea>
+
+                    <button
+                        class="w-full py-6 bg-[#E8D5B5] text-black font-black uppercase tracking-widest text-xs rounded-full hover:scale-[0.98] transition-transform">
                         Send Inquiry
                     </button>
                     <div class="flex justify-center gap-8 mt-10">
-                        <a href="#" class="text-white/40 hover:text-[#E8D5B5] text-xl transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
-                        <a href="#" class="text-white/40 hover:text-[#E8D5B5] text-xl transition-colors"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="text-white/40 hover:text-[#E8D5B5] text-xl transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#" class="text-white/40 hover:text-[#E8D5B5] text-xl transition-colors"><i
+                                class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" class="text-white/40 hover:text-[#E8D5B5] text-xl transition-colors"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="text-white/40 hover:text-[#E8D5B5] text-xl transition-colors"><i
+                                class="fa-brands fa-linkedin"></i></a>
                     </div>
                 </form>
             </div>
@@ -459,7 +634,7 @@
             // Cursor System
             const cursor = document.getElementById('cursor');
             const follower = document.getElementById('cursor-follower');
-            
+
             document.addEventListener('mousemove', (e) => {
                 gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0 });
                 gsap.to(follower, { x: e.clientX - 14, y: e.clientY - 14, duration: 0.15 });
@@ -479,8 +654,8 @@
             // Hero Animations
             const tl = gsap.timeline();
             tl.to('.hero-title', { opacity: 1, y: 0, duration: 1.5, ease: "expo.out" })
-              .to('.hero-subtext', { opacity: 1, y: 0, duration: 1.2, ease: "expo.out" }, "-=1.2")
-              .to('.hero-btns', { opacity: 1, y: 0, duration: 1, ease: "expo.out" }, "-=1");
+                .to('.hero-subtext', { opacity: 1, y: 0, duration: 1.2, ease: "expo.out" }, "-=1.2")
+                .to('.hero-btns', { opacity: 1, y: 0, duration: 1, ease: "expo.out" }, "-=1");
 
             // Scroll Progress
             gsap.to('#progress-bar', {
@@ -547,5 +722,45 @@
             });
         });
     </script>
+    <script>// Mobile Menu
+        // Apple Style Mobile Menu
+
+        const mobileMenu = document.getElementById('mobile-menu');
+        const openMenu = document.getElementById('open-menu');
+        const closeMenu = document.getElementById('close-menu');
+
+        const menuTimeline = gsap.timeline({ paused: true });
+
+        menuTimeline
+            .to(mobileMenu, {
+                opacity: 1,
+                pointerEvents: 'auto',
+                duration: 0.4,
+                ease: "power3.out"
+            })
+
+            .to('.mobile-link-text', {
+                y: 0,
+                opacity: 1,
+                stagger: 0.08,
+                duration: 0.8,
+                ease: "expo.out"
+            }, "-=0.1");
+
+        openMenu.addEventListener('click', () => {
+            menuTimeline.play();
+        });
+
+        closeMenu.addEventListener('click', () => {
+            menuTimeline.reverse();
+        });
+
+        // Close after click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menuTimeline.reverse();
+            });
+        });</script>
 </body>
+
 </html>
