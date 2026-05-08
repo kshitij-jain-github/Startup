@@ -1,607 +1,551 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA | Premium Digital Brand Studio</title>
+    <title>Xtract | Premium Digital Brand Studio</title>
+    <meta name="description" content="A founder-led digital studio building premium brands that convert.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            black: '#050505',
-                            charcoal: '#0F0F0F',
-                            gold: '#D4AF37',
-                            goldLight: '#F9E498',
-                            beige: '#F5F5DC',
-                            accent: '#7C3AED' // Subtle purple glow
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    }
-                }
-            }
-        }
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
+        :root {
+            --color-bg: #050505;
+            --color-card: #0F0F0F;
+            --color-accent: #E8D5B5; /* Gold/Beige */
+            --color-accent-dark: #C5A16F;
+            --font-main: 'Inter', sans-serif;
+            --font-heading: 'Playfair Display', serif;
+        }
+
         body {
-            background-color: #050505;
-            color: #F5F5DC;
-            cursor: none;
-            /* Custom cursor used */
+            background-color: var(--color-bg);
+            color: #ffffff;
+            font-family: var(--font-main);
             overflow-x: hidden;
+            cursor: none;
         }
 
-        .glass {
-            background: rgba(15, 15, 15, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.1);
+        .font-serif { font-family: var(--font-heading); }
+
+        #cursor {
+            width: 12px;
+            height: 12px;
+            background: var(--color-accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            mix-blend-mode: difference;
         }
 
-        .gold-gradient {
-            background: linear-gradient(135deg, #D4AF37 0%, #F9E498 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        #custom-cursor {
-            width: 20px;
-            height: 20px;
-            background: #D4AF37;
+        #cursor-follower {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--color-accent);
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
             z-index: 9999;
-            mix-blend-mode: difference;
             transition: transform 0.15s ease-out;
         }
 
-        .cursor-follower {
-            width: 40px;
-            height: 40px;
-            border: 1px solid rgba(212, 175, 55, 0.5);
+        .glass {
+            background: rgba(15, 15, 15, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .gradient-glow {
+            position: absolute;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, rgba(232, 213, 181, 0.05) 0%, rgba(5, 5, 5, 0) 70%);
             border-radius: 50%;
-            position: fixed;
+            filter: blur(80px);
             pointer-events: none;
-            z-index: 9998;
-            transition: transform 0.3s ease-out;
+            z-index: -1;
         }
 
-        .reveal-text {
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        /* Marquee Animation */
+        .marquee {
+            display: flex;
+            overflow: hidden;
+            user-select: none;
+            gap: 2rem;
         }
 
-        /* Hide scrollbar but keep functionality */
-        ::-webkit-scrollbar {
-            width: 4px;
+        .marquee-content {
+            display: flex;
+            flex-shrink: 0;
+            gap: 2rem;
+            min-width: 100%;
+            animation: scroll 30s linear infinite;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #050505;
+        @keyframes scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-100%); }
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: #D4AF37;
-            border-radius: 10px;
-        }
-
-        .before-after-container {
+        .bento-card {
+            background: var(--color-card);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
             overflow: hidden;
         }
+
+        .bento-card:hover {
+            border-color: var(--color-accent);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        #progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--color-accent);
+            z-index: 10001;
+            width: 0%;
+        }
+
+        /* Mobile Nav Toggle */
+        #mobile-menu.active {
+            transform: translateX(0);
+        }
+
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
     </style>
 </head>
+<body class="antialiased">
 
-<body class="font-sans antialiased">
-
-    <!-- Gradient Glow Backgrounds -->
-    <div
-        class="fixed top-[-10%] left-[-10%] w-[50%] h-[50%] bg-brand-accent/10 blur-[120px] rounded-full pointer-events-none z-0">
-    </div>
-    <div
-        class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-brand-gold/5 blur-[120px] rounded-full pointer-events-none z-0">
-    </div>
-
-    <!-- Custom Cursor -->
-    <div id="custom-cursor"></div>
-    <div id="cursor-follower" class="cursor-follower"></div>
+    <div id="progress-bar"></div>
+    <div id="cursor"></div>
+    <div id="cursor-follower"></div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-4 flex justify-center">
-        <div
-            class="glass max-w-6xl w-full rounded-full px-8 py-3 flex justify-between items-center transition-all duration-500 hover:border-brand-gold/40">
-            <div class="text-2xl font-extrabold tracking-tighter text-brand-gold">AURA<span class="text-white">.</span>
-            </div>
-
-            <div class="hidden md:flex space-x-8 text-sm font-medium tracking-wide">
-                <a href="index.html" class="hover:text-brand-gold transition-colors">HOME</a>
-                <a href="about.html" class="hover:text-brand-gold transition-colors">ABOUT</a>
-                <a href="services.html" class="hover:text-brand-gold transition-colors">SERVICES</a>
-                <a href="portfolio.html" class="hover:text-brand-gold transition-colors">PORTFOLIO</a>
-                <a href="contact.html" class="hover:text-brand-gold transition-colors">CONTACT</a>
-            </div>
-
-            <a href="#contact"
-                class="bg-brand-gold text-brand-black px-6 py-2 rounded-full text-xs font-bold hover:bg-brand-goldLight transition-all transform hover:scale-105 active:scale-95 shadow-[0_0_15px_rgba(212,175,55,0.3)]">
-                FREE STRATEGY CALL
+    <nav class="fixed top-0 w-full z-[100] px-6 py-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center glass rounded-full px-8 py-3">
+            <a href="#" class="text-xl font-bold tracking-tighter flex items-center gap-2">
+                <span class="text-accent" style="color: var(--color-accent);">X</span>TRACT
             </a>
+            
+            <div class="hidden md:flex items-center gap-10 text-[10px] uppercase tracking-[0.2em] font-bold text-white/60">
+                <a href="#home" class="hover:text-white transition-colors">Home</a>
+                <a href="#services" class="hover:text-white transition-colors">Expertise</a>
+                <a href="#work" class="hover:text-white transition-colors">Selected Work</a>
+                <a href="#about" class="hover:text-white transition-colors">About</a>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="#contact" class="bg-white text-black px-5 py-2 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-[#E8D5B5] transition-all duration-500">
+                    Book a Call
+                </a>
+                <button class="md:hidden text-white text-xl"><i class="fa-solid fa-bars-staggered"></i></button>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
-        <div class="max-w-6xl w-full text-center z-10">
-            <div
-                class="inline-block px-4 py-1 border border-brand-gold/30 rounded-full text-[10px] tracking-[0.2em] text-brand-gold mb-8 uppercase font-bold bg-brand-gold/5 animate-pulse-slow">
-                Award-Winning Digital Studio
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 overflow-hidden">
+        <div class="gradient-glow top-[-10%] right-[-10%] opacity-40"></div>
+        <div class="gradient-glow bottom-[-10%] left-[-10%] opacity-20"></div>
+        
+        <div class="max-w-6xl mx-auto px-6 text-center z-10">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 border border-white/10 rounded-full mb-10 backdrop-blur-md">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E8D5B5] opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-[#E8D5B5]"></span>
+                </span>
+                <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-white/50">Founder-Led Digital Studio</span>
             </div>
-
-            <h1 class="text-6xl md:text-8xl font-extrabold tracking-tight mb-8 leading-[1.1]">
-                We build <span class="gold-gradient">premium</span> digital<br class="hidden md:block"> brands that
-                <span class="italic font-serif">convert.</span>
+            
+            <h1 class="hero-title text-6xl md:text-9xl font-bold tracking-tighter mb-10 leading-[0.9] opacity-0">
+                Building <span class="font-serif italic text-[#E8D5B5]">premium</span> <br>
+                digital brands.
             </h1>
-
-            <p class="max-w-2xl mx-auto text-neutral-400 text-lg md:text-xl mb-12 font-light leading-relaxed">
-                Elevating ambitious founders through high-end branding, strategic web design, and conversion-focused
-                content creation.
+            
+            <p class="hero-subtext max-w-2xl mx-auto text-lg md:text-xl text-white/50 mb-14 leading-relaxed opacity-0">
+                High-end strategy, elite design, and scaling solutions for founders who refuse to be second best.
             </p>
 
-            <div class="flex flex-col md:flex-row items-center justify-center gap-6">
-                <a href="#contact"
-                    class="group relative px-10 py-5 bg-white text-brand-black font-bold rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95">
-                    <span class="relative z-10">Book a Free Strategy Call</span>
-                    <div
-                        class="absolute inset-0 bg-brand-gold transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-                    </div>
-                </a>
-                <a href="#portfolio"
-                    class="px-10 py-5 border border-white/10 rounded-2xl font-bold hover:bg-white/5 transition-all flex items-center gap-2">
-                    View Showcase <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                </a>
-            </div>
-        </div>
-
-        <!-- Decorative Floating Elements -->
-        <div
-            class="absolute top-1/4 left-10 w-24 h-24 border border-brand-gold/20 rounded-3xl rotate-12 opacity-20 floating-element">
-        </div>
-        <div
-            class="absolute bottom-1/4 right-10 w-32 h-32 border border-brand-accent/20 rounded-full opacity-20 floating-element-slow">
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="py-32 px-6 relative">
-        <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-20 items-center">
-            <div class="relative group">
-                <div
-                    class="absolute -inset-4 bg-brand-gold/20 rounded-2xl blur-2xl group-hover:bg-brand-gold/30 transition-all opacity-0 group-hover:opacity-100">
-                </div>
-                <div class="relative rounded-2xl overflow-hidden aspect-[4/5] border border-white/10">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
-                        alt="Founder"
-                        class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
-                    <div class="absolute bottom-0 left-0 w-full p-8 bg-gradient-to-t from-black/80 to-transparent">
-                        <p class="text-brand-gold font-bold mb-1 tracking-widest text-xs uppercase">Julian Thorne</p>
-                        <p class="text-white text-sm opacity-80">Founder & Creative Director</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-8">
-                <div class="w-12 h-[2px] bg-brand-gold"></div>
-                <h2 class="text-4xl md:text-5xl font-bold leading-tight">Driven by Design,<br>Defined by <span
-                        class="text-brand-gold">Results</span>.</h2>
-                <p class="text-neutral-400 text-lg leading-relaxed">
-                    Founded on the belief that luxury isn't just about aesthetics—it's about intentionality. We help
-                    high-ticket service providers and innovative startups bridge the gap between their quality and their
-                    digital presence.
-                </p>
-                <div class="grid grid-cols-2 gap-8">
-                    <div>
-                        <h4 class="text-3xl font-bold text-white mb-2">120+</h4>
-                        <p class="text-xs text-neutral-500 uppercase tracking-widest">Global Brands</p>
-                    </div>
-                    <div>
-                        <h4 class="text-3xl font-bold text-white mb-2">$50M+</h4>
-                        <p class="text-xs text-neutral-500 uppercase tracking-widest">Revenue Generated</p>
-                    </div>
-                </div>
-                <button class="flex items-center gap-4 text-brand-gold font-bold hover:gap-6 transition-all">
-                    OUR CORE VALUES <i data-lucide="chevron-right" class="w-5 h-5"></i>
+            <div class="hero-btns flex flex-col md:flex-row gap-5 justify-center items-center opacity-0">
+                <button class="group relative px-10 py-5 bg-[#E8D5B5] text-black rounded-full font-black uppercase tracking-widest text-xs overflow-hidden transition-all hover:scale-105">
+                    <span class="relative z-10">Book Strategy Call</span>
+                    <div class="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                </button>
+                <button class="px-10 py-5 border border-white/10 rounded-full font-black uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all">
+                    View Portfolio
                 </button>
             </div>
-        </div>
-    </section>
 
-    <!-- Services Section -->
-    <section id="services" class="py-32 px-6 bg-brand-charcoal/50">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-20">
-                <h2 class="text-4xl md:text-6xl font-bold mb-6">Our <span class="gold-gradient">Expertise</span></h2>
-                <p class="text-neutral-400 max-w-xl mx-auto">Complete digital solutions tailored for the next generation
-                    of premium brands.</p>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Service Card 1 -->
-                <div class="glass p-10 rounded-[2rem] hover:border-brand-gold/50 transition-all duration-500 group">
-                    <div
-                        class="w-12 h-12 bg-brand-gold/10 rounded-xl flex items-center justify-center text-brand-gold mb-8 group-hover:bg-brand-gold group-hover:text-black transition-all">
-                        <i data-lucide="palette"></i>
+            <div class="mt-32 pt-20 border-t border-white/5">
+                <div class="marquee text-white/20 font-black text-2xl md:text-4xl uppercase tracking-tighter opacity-50 italic">
+                    <div class="marquee-content">
+                        <span>Luxe Branding</span> • <span>Elite Development</span> • <span>Social Growth</span> • <span>Content Mastery</span> • <span>Strategy Advisory</span> •
+                        <span>Luxe Branding</span> • <span>Elite Development</span> • <span>Social Growth</span> • <span>Content Mastery</span> • <span>Strategy Advisory</span> •
                     </div>
-                    <h3 class="text-2xl font-bold mb-4">Branding</h3>
-                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">Identity systems, brand strategy, visual
-                        guidelines, and high-end positioning for premium markets.</p>
-                    <ul class="text-xs space-y-2 text-neutral-500">
-                        <li>• Custom Logo Design</li>
-                        <li>• Typography & Color Palettes</li>
-                        <li>• Brand Voice & Messaging</li>
-                    </ul>
                 </div>
-
-                <!-- Service Card 2 -->
-                <div class="glass p-10 rounded-[2rem] hover:border-brand-gold/50 transition-all duration-500 group">
-                    <div
-                        class="w-12 h-12 bg-brand-gold/10 rounded-xl flex items-center justify-center text-brand-gold mb-8 group-hover:bg-brand-gold group-hover:text-black transition-all">
-                        <i data-lucide="code"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Web Solutions</h3>
-                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">Custom, ultra-fast, and highly interactive
-                        websites designed to convert visitors into loyal clients.</p>
-                    <ul class="text-xs space-y-2 text-neutral-500">
-                        <li>• UI/UX Strategy</li>
-                        <li>• E-Commerce Excellence</li>
-                        <li>• Performance Optimization</li>
-                    </ul>
-                </div>
-
-                <!-- Service Card 3 -->
-                <div class="glass p-10 rounded-[2rem] hover:border-brand-gold/50 transition-all duration-500 group">
-                    <div
-                        class="w-12 h-12 bg-brand-gold/10 rounded-xl flex items-center justify-center text-brand-gold mb-8 group-hover:bg-brand-gold group-hover:text-black transition-all">
-                        <i data-lucide="video"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold mb-4">Content & Social</h3>
-                    <p class="text-neutral-400 text-sm mb-6 leading-relaxed">High-production video editing, viral
-                        short-form content, and comprehensive social management.</p>
-                    <ul class="text-xs space-y-2 text-neutral-500">
-                        <li>• Short-Form Video Strategy</li>
-                        <li>• Cinematic Brand Films</li>
-                        <li>• Aesthetic Feed Management</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Pricing CTA -->
-            <div
-                class="mt-20 glass p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-8 border-dashed border-brand-gold/20">
-                <div>
-                    <h4 class="text-xl font-bold">Ready to scale your digital presence?</h4>
-                    <p class="text-neutral-400 text-sm">Packages starting from $2,500/mo. tailored for your growth.</p>
-                </div>
-                <a href="#contact" class="px-8 py-3 bg-brand-gold text-brand-black rounded-xl font-bold text-sm">View
-                    Packages</a>
             </div>
         </div>
     </section>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="py-32 px-6">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-                <div>
-                    <h2 class="text-4xl md:text-6xl font-bold mb-4">Selected <span class="gold-gradient">Works</span>
-                    </h2>
-                    <p class="text-neutral-400">A showcase of craftsmanship and digital performance.</p>
-                </div>
-                <div class="flex gap-4">
-                    <div class="text-right">
-                        <p class="text-xs text-neutral-500 tracking-widest uppercase mb-1">Scroll to explore</p>
-                        <div class="w-24 h-1 bg-neutral-800 rounded-full overflow-hidden">
-                            <div class="h-full bg-brand-gold w-1/3 transition-all" id="portfolio-progress"></div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Services Section (Bento Grid) -->
+    <section id="services" class="py-32 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-24 space-y-4">
+                <h2 class="text-[11px] uppercase tracking-[0.5em] text-[#E8D5B5] font-black">Our Expertise</h2>
+                <h3 class="text-4xl md:text-7xl font-bold tracking-tighter">Everything you need <br> to scale to 7-figures.</h3>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-12">
-                <!-- Project 1 -->
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden rounded-3xl aspect-video mb-6">
-                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
-                            alt="Work"
-                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div
-                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="px-6 py-3 bg-white text-black font-bold rounded-full text-xs">VIEW CASE
-                                STUDY</span>
-                        </div>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-6 md:grid-rows-2 gap-5 h-auto md:h-[900px]">
+                <!-- Branding Card -->
+                <div class="md:col-span-4 md:row-span-1 bento-card p-12 rounded-[2.5rem] flex flex-col justify-between group">
                     <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="text-2xl font-bold mb-1">Lumina Skincare</h3>
-                            <p class="text-neutral-500 text-sm uppercase tracking-widest">Brand Identity & Web
-                                Development</p>
+                        <div class="w-16 h-16 rounded-2xl bg-[#E8D5B5]/10 flex items-center justify-center text-[#E8D5B5]">
+                            <i class="fa-solid fa-gem text-2xl"></i>
                         </div>
-                        <div class="text-brand-gold font-bold">+400% Sales</div>
+                        <i class="fa-solid fa-arrow-up-right text-xl text-white/10 group-hover:text-[#E8D5B5] transition-colors"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-4xl font-bold mb-4">Branding & Identity</h4>
+                        <p class="text-white/40 max-w-md text-lg">We define your visual soul. From custom typography to psychological brand positioning that demands premium pricing.</p>
+                    </div>
+                </div>
+
+                <!-- Development Card -->
+                <div class="md:col-span-2 md:row-span-2 bento-card p-12 rounded-[2.5rem] flex flex-col justify-between group bg-gradient-to-b from-[#0F0F0F] to-[#050505]">
+                    <div class="w-16 h-16 rounded-2xl bg-[#E8D5B5]/10 flex items-center justify-center text-[#E8D5B5]">
+                        <i class="fa-solid fa-code text-2xl"></i>
+                    </div>
+                    <div class="space-y-10">
+                        <div>
+                            <h4 class="text-4xl font-bold mb-4 leading-tight">Elite <br> Development</h4>
+                            <p class="text-white/40 text-lg">Lightning-fast performance. Webflow, Framer, and custom code integrations.</p>
+                        </div>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-sm text-white/60"><i class="fa-solid fa-check text-[#E8D5B5]"></i> SEO Mastery</li>
+                            <li class="flex items-center gap-3 text-sm text-white/60"><i class="fa-solid fa-check text-[#E8D5B5]"></i> CRM Integration</li>
+                            <li class="flex items-center gap-3 text-sm text-white/60"><i class="fa-solid fa-check text-[#E8D5B5]"></i> 99.9% Lighthouse</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Content Card -->
+                <div class="md:col-span-2 md:row-span-1 bento-card p-10 rounded-[2.5rem] flex flex-col justify-between group">
+                    <div class="w-16 h-16 rounded-2xl bg-[#E8D5B5]/10 flex items-center justify-center text-[#E8D5B5]">
+                        <i class="fa-solid fa-video text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-3xl font-bold mb-3">Content Factory</h4>
+                        <p class="text-white/40">Short-form mastery that captures attention in 0.3 seconds.</p>
+                    </div>
+                </div>
+
+                <!-- Strategy Card -->
+                <div class="md:col-span-2 md:row-span-1 bento-card p-10 rounded-[2.5rem] flex flex-col justify-between group border-dashed border-white/20">
+                    <div class="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center text-white">
+                        <i class="fa-solid fa-chess-knight text-2xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-3xl font-bold mb-3">Scaling Strategy</h4>
+                        <p class="text-white/40">Consulting for tech-stacks and high-ticket sales psychology.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="py-32 bg-[#0A0A0A]">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-24 gap-10">
+                <div class="max-w-2xl">
+                    <h2 class="text-[11px] uppercase tracking-[0.5em] text-[#E8D5B5] font-black mb-6">Case Studies</h2>
+                    <h3 class="text-5xl md:text-8xl font-bold tracking-tighter">Selected <span class="font-serif italic text-[#E8D5B5]">Works</span></h3>
+                </div>
+                <div class="text-white/40 text-lg max-w-xs border-l border-white/10 pl-8">
+                    We only work with 3 clients at a time to ensure obsessive attention to detail.
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20">
+                <!-- Project 1 -->
+                <div class="project-item group cursor-pointer">
+                    <div class="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] mb-10">
+                        <img src="https://images.unsplash.com/photo-1634942537034-2531766767d1?auto=format&fit=crop&q=80&w=1000" alt="Work 1" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                            <span class="bg-white text-black px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest translate-y-10 group-hover:translate-y-0 transition-transform duration-500">View Experience</span>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <div class="space-y-2">
+                            <span class="text-[10px] uppercase tracking-widest text-white/30 font-bold">Fintech • Branding • Web Experience</span>
+                            <h4 class="text-3xl font-bold">Solaris Capital</h4>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-[#E8D5B5] font-serif italic text-2xl">+140%</div>
+                            <div class="text-[9px] uppercase font-bold text-white/20">Conv. Rate</div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Project 2 -->
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden rounded-3xl aspect-video mb-6">
-                        <img src="https://images.unsplash.com/photo-1635339001026-61969015bc76?auto=format&fit=crop&w=800&q=80"
-                            alt="Work"
-                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                        <div
-                            class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <span class="px-6 py-3 bg-white text-black font-bold rounded-full text-xs">VIEW CASE
-                                STUDY</span>
+                <div class="project-item group cursor-pointer mt-0 md:mt-32">
+                    <div class="relative aspect-[16/10] overflow-hidden rounded-[2.5rem] mb-10">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=1000" alt="Work 2" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                            <span class="bg-white text-black px-10 py-4 rounded-full font-black text-xs uppercase tracking-widest translate-y-10 group-hover:translate-y-0 transition-transform duration-500">View Experience</span>
                         </div>
                     </div>
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <h3 class="text-2xl font-bold mb-1">Apex Finance</h3>
-                            <p class="text-neutral-500 text-sm uppercase tracking-widest">Digital Ecosystem & UI/UX</p>
+                    <div class="flex justify-between items-end">
+                        <div class="space-y-2">
+                            <span class="text-[10px] uppercase tracking-widest text-white/30 font-bold">E-Commerce • Content • Strategy</span>
+                            <h4 class="text-3xl font-bold">Aether Fragrance</h4>
                         </div>
-                        <div class="text-brand-gold font-bold">Series B Funded</div>
+                        <div class="text-right">
+                            <div class="text-[#E8D5B5] font-serif italic text-2xl">$2.4M</div>
+                            <div class="text-[9px] uppercase font-bold text-white/20">Total Revenue</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-32 px-6 relative bg-brand-charcoal overflow-hidden">
-        <div
-            class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10">
-        </div>
+    <section class="py-32 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-20">
+                <h2 class="text-[11px] uppercase tracking-[0.5em] text-[#E8D5B5] font-black mb-6">Pricing Packages</h2>
+                <h3 class="text-4xl md:text-6xl font-bold tracking-tighter">Invest in <span class="font-serif italic text-[#E8D5B5]">Longevity.</span></h3>
+            </div>
 
-        <div class="max-w-6xl mx-auto relative z-10 grid md:grid-cols-2 gap-20">
-            <div>
-                <h2 class="text-5xl md:text-7xl font-bold mb-8 leading-tight">Let's build<br>your <span
-                        class="gold-gradient">legacy.</span></h2>
-                <p class="text-neutral-400 text-lg mb-12">Stop settling for mediocre digital presence. Let's create
-                    something your competitors will envy.</p>
-
-                <div class="space-y-6">
-                    <div
-                        class="flex items-center gap-6 p-4 glass rounded-2xl hover:border-brand-gold/30 transition-all">
-                        <div
-                            class="w-12 h-12 flex items-center justify-center bg-brand-gold/10 text-brand-gold rounded-full">
-                            <i data-lucide="mail"></i>
-                        </div>
-                        <div>
-                            <p class="text-xs text-neutral-500 uppercase font-bold">Email us</p>
-                            <p class="font-bold">hello@aura.studio</p>
-                        </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Tier 1 -->
+                <div class="glass p-10 rounded-[3rem] border-white/5 flex flex-col justify-between h-full">
+                    <div>
+                        <div class="text-sm font-bold text-[#E8D5B5] mb-2 uppercase tracking-widest">Growth Starter</div>
+                        <div class="text-5xl font-bold mb-8">$2,900<span class="text-sm font-normal text-white/20">/mo</span></div>
+                        <ul class="space-y-5 mb-12">
+                            <li class="flex items-center gap-3 text-sm text-white/50"><i class="fa-solid fa-check text-[#E8D5B5]"></i> Social Media Mgmt</li>
+                            <li class="flex items-center gap-3 text-sm text-white/50"><i class="fa-solid fa-check text-[#E8D5B5]"></i> 8 Premium Reels</li>
+                            <li class="flex items-center gap-3 text-sm text-white/50"><i class="fa-solid fa-check text-[#E8D5B5]"></i> Strategy Consultation</li>
+                        </ul>
                     </div>
-                    <div
-                        class="flex items-center gap-6 p-4 glass rounded-2xl hover:border-brand-gold/30 transition-all">
-                        <div
-                            class="w-12 h-12 flex items-center justify-center bg-[#25D366]/10 text-[#25D366] rounded-full">
-                            <i data-lucide="message-circle"></i>
+                    <button class="w-full py-5 rounded-full border border-white/10 font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white/5 transition-colors">Choose Plan</button>
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="p-10 rounded-[3rem] bg-[#E8D5B5] text-black relative scale-105 z-10">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-black text-white text-[9px] px-6 py-1 rounded-full font-black uppercase tracking-widest">Most Popular</div>
+                    <div>
+                        <div class="text-sm font-bold mb-2 uppercase tracking-widest">The Studio Partner</div>
+                        <div class="text-5xl font-bold mb-8">$5,500<span class="text-sm font-normal text-black/40">/mo</span></div>
+                        <ul class="space-y-5 mb-12">
+                            <li class="flex items-center gap-3 text-sm font-bold"><i class="fa-solid fa-check"></i> Full Visual Identity</li>
+                            <li class="flex items-center gap-3 text-sm font-bold"><i class="fa-solid fa-check"></i> Framer Website Build</li>
+                            <li class="flex items-center gap-3 text-sm font-bold"><i class="fa-solid fa-check"></i> 16 Premium Shortform</li>
+                            <li class="flex items-center gap-3 text-sm font-bold"><i class="fa-solid fa-check"></i> Priority Support</li>
+                        </ul>
+                    </div>
+                    <button class="w-full py-5 rounded-full bg-black text-white font-bold text-[10px] uppercase tracking-[0.2em] hover:opacity-80 transition-all">Start Scaling</button>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="glass p-10 rounded-[3rem] border-white/5 flex flex-col justify-between h-full">
+                    <div>
+                        <div class="text-sm font-bold text-[#E8D5B5] mb-2 uppercase tracking-widest">Enterprise Custom</div>
+                        <div class="text-5xl font-bold mb-8">$10k+<span class="text-sm font-normal text-white/20">/mo</span></div>
+                        <p class="text-white/40 mb-10 text-sm italic">For brands generating $500k+ in revenue looking for full ecosystem transformation.</p>
+                    </div>
+                    <button class="w-full py-5 rounded-full border border-white/10 font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-white/5 transition-colors">Book Discovery</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-32 border-t border-white/5">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+                <div class="relative">
+                    <div class="rounded-[3rem] overflow-hidden aspect-[4/5] bg-neutral-900">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800" alt="Founder" class="w-full h-full object-cover grayscale">
+                    </div>
+                    <div class="absolute -bottom-10 -right-10 glass p-8 rounded-3xl hidden md:block w-72">
+                        <div class="text-2xl font-serif italic text-[#E8D5B5] mb-4">"Aesthetics is the first layer of trust."</div>
+                        <div class="text-[10px] uppercase font-bold tracking-widest text-white/40">— Marcus Thorne, Founder</div>
+                    </div>
+                </div>
+                <div class="space-y-10">
+                    <h2 class="text-5xl md:text-7xl font-bold tracking-tighter">Founder-Led <br> <span class="font-serif italic text-[#E8D5B5]">Obsession.</span></h2>
+                    <p class="text-white/50 text-xl leading-relaxed">
+                        After scaling three startups to 8-figure exits, I realized that modern agencies are broken. They sell hours, not outcomes. 
+                        <br><br>
+                        Xtract was born to be the antidote. We operate as a tactical partner, fusing high-end art with ruthless business logic.
+                    </p>
+                    <div class="flex gap-10 border-t border-white/10 pt-10">
+                        <div>
+                            <div class="text-4xl font-bold">12+</div>
+                            <div class="text-[9px] uppercase tracking-widest text-white/30 font-black">Years Exp</div>
                         </div>
                         <div>
-                            <p class="text-xs text-neutral-500 uppercase font-bold">WhatsApp</p>
-                            <p class="font-bold">+1 (555) 000-STUDIO</p>
+                            <div class="text-4xl font-bold">50+</div>
+                            <div class="text-[9px] uppercase tracking-widest text-white/30 font-black">Brands Built</div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="glass p-10 rounded-[2.5rem]">
-                <form id="contact-form" class="space-y-6">
-                    <div class="space-y-2">
-                        <label class="text-xs uppercase tracking-widest text-neutral-400 font-bold">Full Name</label>
-                        <input type="text" placeholder="John Doe"
-                            class="w-full bg-brand-black/50 border border-white/10 rounded-xl px-6 py-4 focus:border-brand-gold outline-none transition-all text-white">
+    <!-- Contact Form -->
+    <section id="contact" class="py-32 relative">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="glass p-12 md:p-20 rounded-[4rem] text-center border-white/10">
+                <h2 class="text-5xl md:text-8xl font-bold tracking-tighter mb-10">Let's build <br> something <span class="font-serif italic text-[#E8D5B5]">iconic.</span></h2>
+                
+                <form class="max-w-xl mx-auto space-y-6 mt-16 text-left" onsubmit="event.preventDefault()">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <input type="text" placeholder="Full Name" class="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-[#E8D5B5] transition-colors w-full">
+                        <input type="email" placeholder="Email Address" class="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-[#E8D5B5] transition-colors w-full">
                     </div>
-                    <div class="space-y-2">
-                        <label class="text-xs uppercase tracking-widest text-neutral-400 font-bold">Work Email</label>
-                        <input type="email" placeholder="john@company.com"
-                            class="w-full bg-brand-black/50 border border-white/10 rounded-xl px-6 py-4 focus:border-brand-gold outline-none transition-all text-white">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs uppercase tracking-widest text-neutral-400 font-bold">Project Goal</label>
-                        <select
-                            class="w-full bg-brand-black/50 border border-white/10 rounded-xl px-6 py-4 focus:border-brand-gold outline-none transition-all text-white appearance-none">
-                            <option>Full Digital Branding</option>
-                            <option>Website Design & Dev</option>
-                            <option>Content Production</option>
-                            <option>Other</option>
-                        </select>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs uppercase tracking-widest text-neutral-400 font-bold">Message</label>
-                        <textarea rows="4" placeholder="Tell us about your vision..."
-                            class="w-full bg-brand-black/50 border border-white/10 rounded-xl px-6 py-4 focus:border-brand-gold outline-none transition-all text-white"></textarea>
-                    </div>
-                    <button type="submit"
-                        class="w-full py-5 bg-brand-gold text-brand-black font-extrabold rounded-xl hover:bg-brand-goldLight transition-all transform active:scale-95 shadow-xl shadow-brand-gold/10">
-                        SEND INQUIRY
+                    <textarea placeholder="Tell us about your project vision..." rows="4" class="bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-[#E8D5B5] transition-colors w-full"></textarea>
+                    
+                    <button class="w-full py-6 bg-[#E8D5B5] text-black font-black uppercase tracking-widest text-xs rounded-full hover:scale-[0.98] transition-transform">
+                        Send Inquiry
                     </button>
+                    <div class="flex justify-center gap-8 mt-10">
+                        <a href="#" class="text-white/40 hover:text-[#E8D5B5] text-xl transition-colors"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="#" class="text-white/40 hover:text-[#E8D5B5] text-xl transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="text-white/40 hover:text-[#E8D5B5] text-xl transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
                 </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-20 px-6 border-t border-white/5">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
-            <div>
-                <div class="text-3xl font-extrabold tracking-tighter text-brand-gold mb-4">AURA<span
-                        class="text-white">.</span></div>
-                <p class="text-neutral-500 text-sm">© 2024 AURA Digital Studio. All rights reserved.</p>
+    <footer class="py-20 border-t border-white/5 bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-10">
+                <div class="text-2xl font-black tracking-tighter">
+                    <span class="text-[#E8D5B5]">X</span>TRACT
+                </div>
+                <div class="flex gap-10 text-[10px] uppercase tracking-widest font-bold text-white/30">
+                    <a href="#" class="hover:text-white transition-colors">Privacy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms</a>
+                    <a href="#" class="hover:text-white transition-colors">Career</a>
+                </div>
+                <div class="text-[10px] text-white/20 font-bold uppercase tracking-widest">
+                    © 2024 XTRACT STUDIO. HIGH-TICKET ONLY.
+                </div>
             </div>
-
-            <div class="flex gap-10">
-                <a href="#" class="text-neutral-400 hover:text-white transition-colors">Instagram</a>
-                <a href="#" class="text-neutral-400 hover:text-white transition-colors">LinkedIn</a>
-                <a href="#" class="text-neutral-400 hover:text-white transition-colors">Dribbble</a>
-                <a href="#" class="text-neutral-400 hover:text-white transition-colors">X / Twitter</a>
-            </div>
-
-            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
-                class="p-4 border border-white/10 rounded-full hover:border-brand-gold transition-colors">
-                <i data-lucide="arrow-up" class="w-5 h-5 text-brand-gold"></i>
-            </button>
         </div>
     </footer>
 
     <script>
-        // Initialize Lucide Icons
-        lucide.createIcons();
+        document.addEventListener('DOMContentLoaded', () => {
+            gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
-        // Custom Cursor Logic
-        const cursor = document.getElementById('custom-cursor');
-        const follower = document.getElementById('cursor-follower');
-
-        document.addEventListener('mousemove', (e) => {
-            gsap.to(cursor, {
-                x: e.clientX - 10,
-                y: e.clientY - 10,
-                duration: 0.1
+            // Cursor System
+            const cursor = document.getElementById('cursor');
+            const follower = document.getElementById('cursor-follower');
+            
+            document.addEventListener('mousemove', (e) => {
+                gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0 });
+                gsap.to(follower, { x: e.clientX - 14, y: e.clientY - 14, duration: 0.15 });
             });
-            gsap.to(follower, {
-                x: e.clientX - 20,
-                y: e.clientY - 20,
-                duration: 0.3
+
+            // Interactive elements scaling for cursor
+            const interactive = document.querySelectorAll('button, a, .bento-card, .project-item');
+            interactive.forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    gsap.to(follower, { scale: 2.5, backgroundColor: 'rgba(232, 213, 181, 0.1)', borderColor: 'transparent', duration: 0.3 });
+                });
+                el.addEventListener('mouseleave', () => {
+                    gsap.to(follower, { scale: 1, backgroundColor: 'transparent', borderColor: '#E8D5B5', duration: 0.3 });
+                });
             });
-        });
 
-        // Hover Effects for Custom Cursor
-        const interactiveElements = document.querySelectorAll('a, button, input, select, textarea, .group');
-        interactiveElements.forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                gsap.to(cursor, { scale: 3, opacity: 0.5 });
-                gsap.to(follower, { scale: 1.5, borderColor: '#D4AF37' });
+            // Hero Animations
+            const tl = gsap.timeline();
+            tl.to('.hero-title', { opacity: 1, y: 0, duration: 1.5, ease: "expo.out" })
+              .to('.hero-subtext', { opacity: 1, y: 0, duration: 1.2, ease: "expo.out" }, "-=1.2")
+              .to('.hero-btns', { opacity: 1, y: 0, duration: 1, ease: "expo.out" }, "-=1");
+
+            // Scroll Progress
+            gsap.to('#progress-bar', {
+                width: '100%',
+                scrollTrigger: {
+                    trigger: 'body',
+                    start: 'top top',
+                    end: 'bottom bottom',
+                    scrub: 0.2
+                }
             });
-            el.addEventListener('mouseleave', () => {
-                gsap.to(cursor, { scale: 1, opacity: 1 });
-                gsap.to(follower, { scale: 1, borderColor: 'rgba(212, 175, 55, 0.5)' });
-            });
-        });
 
-        // Register GSAP Plugins
-        gsap.registerPlugin(ScrollTrigger);
-
-        // Hero Content Reveal
-        gsap.from('#home h1', {
-            y: 100,
-            opacity: 0,
-            duration: 1.2,
-            ease: "power4.out",
-            delay: 0.5
-        });
-
-        gsap.from('#home p', {
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-            delay: 0.8
-        });
-
-        gsap.from('#home .flex', {
-            y: 30,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
-            delay: 1
-        });
-
-        // Section Title Animations
-        gsap.utils.toArray('section').forEach(section => {
-            const heading = section.querySelector('h2');
-            if (heading) {
-                gsap.from(heading, {
-                    scrollTrigger: {
-                        trigger: section,
-                        start: "top 80%",
-                        toggleActions: "play none none reverse"
-                    },
-                    y: 50,
+            // Bento Grid reveal
+            gsap.utils.toArray('.bento-card').forEach((card, i) => {
+                gsap.from(card, {
+                    y: 60,
                     opacity: 0,
                     duration: 1,
-                    ease: "power3.out"
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    },
+                    delay: i * 0.1
                 });
-            }
-        });
+            });
 
-        // Service Cards Cascade
-        gsap.from('#services .glass', {
-            scrollTrigger: {
-                trigger: '#services',
-                start: "top 70%"
-            },
-            y: 60,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power3.out"
-        });
+            // Project Items reveal
+            gsap.utils.toArray('.project-item').forEach(item => {
+                gsap.from(item, {
+                    y: 100,
+                    opacity: 0,
+                    duration: 1.5,
+                    scrollTrigger: {
+                        trigger: item,
+                        start: 'top 90%',
+                    }
+                });
+            });
 
-        // Portfolio Progress Tracking
-        window.addEventListener('scroll', () => {
-            const scrollPos = window.scrollY;
-            const portSection = document.getElementById('portfolio');
-            const start = portSection.offsetTop;
-            const height = portSection.offsetHeight;
-            const progress = Math.min(Math.max((scrollPos - start) / height * 100, 0), 100);
-            document.getElementById('portfolio-progress').style.width = `${progress}%`;
-        });
+            // Reveal Headlines
+            gsap.utils.toArray('h3').forEach(h3 => {
+                gsap.from(h3, {
+                    x: -50,
+                    opacity: 0,
+                    duration: 1.2,
+                    scrollTrigger: {
+                        trigger: h3,
+                        start: 'top 85%'
+                    }
+                });
+            });
 
-        // Form Submit Simulation
-        document.getElementById('contact-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = "MESSAGE SENT SUCCESSFULLY!";
-            btn.classList.replace('bg-brand-gold', 'bg-green-600');
-            btn.classList.replace('text-brand-black', 'text-white');
-
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.classList.replace('bg-green-600', 'bg-brand-gold');
-                btn.classList.replace('text-white', 'text-brand-black');
-                e.target.reset();
-            }, 3000);
-        });
-
-        // Float Animation for elements
-        gsap.to('.floating-element', {
-            y: -30,
-            rotation: 20,
-            duration: 3,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
-
-        gsap.to('.floating-element-slow', {
-            y: 40,
-            scale: 1.1,
-            duration: 5,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
+            // Background Parallax for Project Images
+            gsap.utils.toArray('.project-item img').forEach(img => {
+                gsap.to(img, {
+                    yPercent: 15,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: img,
+                        scrub: true
+                    }
+                });
+            });
         });
     </script>
 </body>
-
 </html>
