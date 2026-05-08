@@ -192,12 +192,12 @@ document.querySelectorAll('.mobile-link').forEach(link => {
 // Premium Running Word Reveal
 
 const words = [
-    "cinematic",
-    "premium",
-    "immersive",
-    "luxury",
-    "modern",
-    "iconic"
+    "Cinematic",
+    "Premium",
+
+    "Luxury",
+    "Modern",
+    "Iconic"
 ];
 
 const changingText = document.getElementById("changing-text");
@@ -270,29 +270,334 @@ const loaderTL = gsap.timeline();
 
 loaderTL
 
-.to(".loader-letter", {
-    y: 0,
-    opacity: 1,
-    filter: "blur(0px)",
-    stagger: 0.08,
-    duration: 1,
-    ease: "expo.out"
-})
+    .to(".loader-letter", {
+        y: 0,
+        opacity: 1,
+        filter: "blur(0px)",
+        stagger: 0.08,
+        duration: 1,
+        ease: "expo.out"
+    })
 
-.to(".loader-letter", {
-    opacity: 0.7,
-    duration: 0.3,
-    stagger: 0.03,
-    repeat: 1,
-    yoyo: true
-})
+    .to(".loader-letter", {
+        opacity: 0.7,
+        duration: 0.3,
+        stagger: 0.03,
+        repeat: 1,
+        yoyo: true
+    })
 
-.to("#loader", {
+    .to("#loader", {
+        opacity: 0,
+        duration: 1,
+        ease: "power3.inOut",
+        delay: 0.3,
+        onComplete: () => {
+            document.getElementById("loader").style.display = "none";
+        }
+    });
+
+
+// Blob Mouse Movement
+
+document.addEventListener("mousemove", (e) => {
+
+    gsap.to(".center-blob", {
+        x: (e.clientX - window.innerWidth / 2) * 0.02,
+        y: (e.clientY - window.innerHeight / 2) * 0.02,
+        duration: 4,
+        ease: "power3.out"
+    });
+
+});
+
+
+// PREMIUM CARD REVEAL
+
+gsap.utils.toArray(".premium-card").forEach((card, i) => {
+
+    gsap.from(card, {
+
+        opacity: 0,
+        y: 80,
+        scale: 0.92,
+        duration: 1.2,
+        ease: "expo.out",
+
+        scrollTrigger: {
+            trigger: card,
+            start: "top 88%"
+        },
+
+        delay: i * 0.08
+
+    });
+
+});
+
+// MAGNETIC HOVER
+
+document.querySelectorAll(".premium-card").forEach(card => {
+
+    card.addEventListener("mousemove", (e) => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        gsap.to(card, {
+            x: x * 0.08,
+            y: y * 0.08,
+            duration: 0.6,
+            ease: "power3.out"
+        });
+
+    });
+
+    card.addEventListener("mouseleave", () => {
+
+        gsap.to(card, {
+            x: 0,
+            y: 0,
+            duration: 0.8,
+            ease: "elastic.out(1,0.4)"
+        });
+
+    });
+
+});
+
+
+// WORK SECTION REVEAL
+
+gsap.utils.toArray(".project-card").forEach((card, i) => {
+
+    gsap.from(card, {
+
+        opacity: 0,
+        y: 120,
+        scale: 0.92,
+        duration: 1.4,
+        ease: "expo.out",
+
+        scrollTrigger: {
+            trigger: card,
+            start: "top 85%"
+        },
+
+        delay: i * 0.12
+
+    });
+
+});
+
+// PARALLAX IMAGES
+
+document.querySelectorAll(".project-card").forEach(card => {
+
+    const image = card.querySelector(".project-image");
+
+    card.addEventListener("mousemove", (e) => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        gsap.to(image, {
+            x: x * 20,
+            y: y * 20,
+            duration: 1,
+            ease: "power3.out"
+        });
+
+    });
+
+    card.addEventListener("mouseleave", () => {
+
+        gsap.to(image, {
+            x: 0,
+            y: 0,
+            duration: 1.2,
+            ease: "expo.out"
+        });
+
+    });
+
+});
+
+
+// PRICING REVEAL
+
+gsap.utils.toArray(".pricing-card").forEach((card, i) => {
+
+    gsap.from(card, {
+
+        opacity: 0,
+        y: 100,
+        scale: 0.92,
+        duration: 1.2,
+        ease: "expo.out",
+
+        scrollTrigger: {
+            trigger: card,
+            start: "top 88%"
+        },
+
+        delay: i * 0.1
+
+    });
+
+});
+
+// MAGNETIC EFFECT
+
+document.querySelectorAll(".pricing-card").forEach(card => {
+
+    card.addEventListener("mousemove", (e) => {
+
+        const rect = card.getBoundingClientRect();
+
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        gsap.to(card, {
+            x: x * 0.05,
+            y: y * 0.05,
+            duration: 0.6,
+            ease: "power3.out"
+        });
+
+    });
+
+    card.addEventListener("mouseleave", () => {
+
+        gsap.to(card, {
+            x: 0,
+            y: 0,
+            duration: 0.8,
+            ease: "elastic.out(1,0.4)"
+        });
+
+    });
+
+});
+
+
+// IMAGE REVEAL
+
+gsap.from(".founder-image-wrapper", {
+
     opacity: 0,
-    duration: 1,
-    ease: "power3.inOut",
-    delay: 0.3,
-    onComplete: () => {
-        document.getElementById("loader").style.display = "none";
+    y: 100,
+    scale: 0.92,
+    duration: 1.5,
+    ease: "expo.out",
+
+    scrollTrigger: {
+        trigger: ".founder-image-wrapper",
+        start: "top 80%"
     }
+
+});
+
+// CONTENT REVEAL
+
+gsap.from("#about .space-y-10 > *", {
+
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    stagger: 0.15,
+    ease: "power3.out",
+
+    scrollTrigger: {
+        trigger: "#about",
+        start: "top 70%"
+    }
+
+});
+
+// FLOATING CARD
+
+gsap.to(".glass-card", {
+
+    y: -12,
+    duration: 3,
+    repeat: -1,
+    yoyo: true,
+    ease: "sine.inOut"
+
+});
+
+// PARALLAX IMAGE
+
+document.querySelector(".founder-image-wrapper")
+.addEventListener("mousemove", (e) => {
+
+    const image = document.querySelector(".founder-image");
+
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    gsap.to(image, {
+
+        x: x * 20,
+        y: y * 20,
+        duration: 1,
+        ease: "power3.out"
+
+    });
+
+});
+
+document.querySelector(".founder-image-wrapper")
+.addEventListener("mouseleave", () => {
+
+    gsap.to(".founder-image", {
+
+        x: 0,
+        y: 0,
+        duration: 1.2,
+        ease: "expo.out"
+
+    });
+
+});
+
+
+// FOOTER REVEAL
+
+gsap.from("footer .grid > div", {
+
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    stagger: 0.15,
+    ease: "power3.out",
+
+    scrollTrigger: {
+        trigger: "footer",
+        start: "top 85%"
+    }
+
+});
+
+// FOOTER CTA
+
+gsap.from("footer h2", {
+
+    opacity: 0,
+    y: 80,
+    duration: 1.2,
+    ease: "expo.out",
+
+    scrollTrigger: {
+        trigger: "footer",
+        start: "top 80%"
+    }
+
 });
