@@ -29,7 +29,15 @@ body {
     opacity: 0;
     transform: translateY(120px);
     display: inline-block;
-    color: #E8D5B5;
+    background: linear-gradient(
+        0deg,
+        #ffdca0,
+        #ffffff
+        
+    );
+    
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     text-shadow: 0 0 20px rgba(232, 213, 181, 0.3);
     will-change: transform, opacity;
     filter: blur(30px);
@@ -350,31 +358,8 @@ body {
 }
 
 
-/* Grid Overlay */
-
-.hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 80px 80px;
-    opacity: 0.15;
-    mask-image: radial-gradient(circle at center, black 30%, transparent 90%);
-    z-index: 0;
-}
-
-/* Noise Overlay */
-
-.hero-noise {
-    position: absolute;
-    inset: 0;
-    opacity: 0.03;
-    background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
-    pointer-events: none;
-    z-index: 1;
-}
-
+ 
+ 
 /* RESPONSIVE IMPROVEMENTS */
 
 @media (max-width: 1024px) {
