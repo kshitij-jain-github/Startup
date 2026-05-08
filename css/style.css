@@ -1,0 +1,453 @@
+:root {
+    --color-bg: #050505;
+    --color-card: #0F0F0F;
+    --color-accent: #E8D5B5;
+    /* Gold/Beige */
+    --color-accent-dark: #C5A16F;
+    --font-main: 'Inter', sans-serif;
+    --font-heading: 'Playfair Display', serif;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: #ffffff;
+    font-family: var(--font-main);
+    overflow-x: hidden;
+    cursor: none;
+}
+
+.font-serif {
+    font-family: var(--font-heading);
+}
+
+#cursor {
+    width: 12px;
+    height: 12px;
+    background: var(--color-accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: difference;
+}
+
+#cursor-follower {
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--color-accent);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease-out;
+}
+
+.glass {
+    background: rgba(15, 15, 15, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.gradient-glow {
+    position: absolute;
+    width: 50vw;
+    height: 50vw;
+    background: radial-gradient(circle, rgba(232, 213, 181, 0.05) 0%, rgba(5, 5, 5, 0) 70%);
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* Marquee Animation */
+.marquee {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: 2rem;
+}
+
+.marquee-content {
+    display: flex;
+    flex-shrink: 0;
+    gap: 2rem;
+    min-width: 100%;
+    animation: scroll 30s linear infinite;
+}
+
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.bento-card {
+    background: var(--color-card);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.bento-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--color-accent);
+    z-index: 10001;
+    width: 0%;
+}
+
+/* Mobile Nav Toggle */
+#mobile-menu.active {
+    transform: translateX(0);
+}
+
+/* Apple Style Mobile Menu */
+
+.mobile-link {
+    position: relative;
+}
+
+.mobile-link-text {
+    transform: translateY(120%);
+    opacity: 0;
+}
+
+.mobile-link:hover {
+    color: #E8D5B5;
+}
+
+#mobile-menu {
+    backdrop-filter: blur(30px);
+    -webkit-backdrop-filter: blur(30px);
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-accent);
+}
+
+/* HERO BACKGROUND EFFECTS */
+
+.hero-bg-orb {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(90px);
+    z-index: 0;
+    opacity: 0.12;
+    pointer-events: none;
+}
+
+.orb-one {
+    width: 500px;
+    height: 500px;
+    background: #E8D5B5;
+    top: -10%;
+    left: -10%;
+    animation: floatOrbOne 12s ease-in-out infinite;
+}
+
+.orb-two {
+    width: 400px;
+    height: 400px;
+    background: #ffffff;
+    bottom: -10%;
+    right: -10%;
+    animation: floatOrbTwo 15s ease-in-out infinite;
+}
+
+.orb-three {
+    width: 300px;
+    height: 300px;
+    background: #C5A16F;
+    top: 40%;
+    left: 50%;
+    animation: floatOrbThree 10s ease-in-out infinite;
+}
+
+/* Floating Animations */
+
+@keyframes floatOrbOne {
+    0% {
+        transform: translate(0px, 0px);
+    }
+
+    50% {
+        transform: translate(40px, -50px);
+    }
+
+    100% {
+        transform: translate(0px, 0px);
+    }
+}
+
+@keyframes floatOrbTwo {
+    0% {
+        transform: translate(0px, 0px);
+    }
+
+    50% {
+        transform: translate(-30px, 40px);
+    }
+
+    100% {
+        transform: translate(0px, 0px);
+    }
+}
+
+@keyframes floatOrbThree {
+    0% {
+        transform: translate(-50%, 0px);
+    }
+
+    50% {
+        transform: translate(-45%, -40px);
+    }
+
+    100% {
+        transform: translate(-50%, 0px);
+    }
+}
+
+/* Grid Overlay */
+
+.hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    opacity: 0.15;
+    mask-image: radial-gradient(circle at center, black 30%, transparent 90%);
+    z-index: 0;
+}
+
+/* Noise Overlay */
+
+.hero-noise {
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("https://www.transparenttextures.com/patterns/asfalt-dark.png");
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* RESPONSIVE IMPROVEMENTS */
+
+@media (max-width: 1024px) {
+
+    .hero-title {
+        font-size: 5rem !important;
+    }
+
+    .hero-subtext {
+        font-size: 1.1rem !important;
+        padding-inline: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    #home {
+        padding-top: 8rem;
+        min-height: auto;
+        padding-bottom: 5rem;
+    }
+
+    .hero-title {
+        font-size: 3.5rem !important;
+        line-height: 1 !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    .hero-subtext {
+        font-size: 1rem !important;
+        line-height: 1.7 !important;
+        margin-bottom: 2rem !important;
+    }
+
+    .hero-btns {
+        width: 100%;
+        padding-inline: 1rem;
+    }
+
+    .hero-btns button {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .marquee {
+        margin-top: 2rem;
+    }
+
+    .marquee-content {
+        font-size: 1rem;
+    }
+
+    .hero-bg-orb {
+        filter: blur(70px);
+        opacity: 0.09;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .hero-title {
+        font-size: 2.8rem !important;
+    }
+
+    .hero-subtext {
+        font-size: 0.95rem !important;
+    }
+
+    .marquee-content {
+        font-size: 0.85rem;
+    }
+}
+
+/* HERO RESPONSIVE FIXES */
+
+@media (max-width: 768px) {
+
+    .hero-bg-orb {
+        filter: blur(70px);
+        opacity: 0.08;
+    }
+
+    .orb-one {
+        width: 260px;
+        height: 260px;
+    }
+
+    .orb-two {
+        width: 220px;
+        height: 220px;
+    }
+
+    .orb-three {
+        width: 180px;
+        height: 180px;
+    }
+
+    .marquee-content {
+        gap: 1rem;
+        animation-duration: 18s;
+    }
+
+    .hero-grid {
+        background-size: 50px 50px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    #home {
+        min-height: auto;
+    }
+
+    .hero-title {
+        font-size: 2.8rem !important;
+    }
+
+    .hero-subtext {
+        font-size: 0.95rem !important;
+        line-height: 1.8;
+    }
+
+    .marquee {
+        padding-bottom: 10px;
+    }
+
+    .marquee-content {
+        font-size: 0.9rem;
+    }
+}
+
+#changing-text {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+/* Split Text Animation */
+
+.hero-line {
+    transform: translateY(120%);
+    opacity: 0;
+    display: inline-block;
+    will-change: transform, opacity;
+    filter: blur(10px);
+}
+
+/* Smooth rendering */
+
+.hero-title {
+    perspective: 1000px;
+    letter-spacing: -0.04em;
+}
+
+.hero-title span {
+    backface-visibility: hidden;
+}
+
+/* Cinematic Hero Reveal */
+
+.hero-left,
+.hero-right,
+.hero-bottom {
+    opacity: 0;
+    filter: blur(10px);
+    will-change: transform, opacity, filter;
+}
+
+/* Left animation */
+
+.hero-left {
+    transform: translateX(-120px);
+}
+
+/* Right animation */
+
+.hero-right {
+    transform: translateX(120px);
+}
+
+/* Bottom reveal */
+
+.hero-bottom {
+    transform: translateY(100%);
+}
+
+/* Smooth Rendering */
+
+.hero-title span {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
