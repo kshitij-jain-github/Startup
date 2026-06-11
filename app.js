@@ -1,603 +1,205 @@
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    gsap.registerPlugin(ScrollTrigger, TextPlugin);
-
-    // Cursor System
-    const cursor = document.getElementById('cursor');
-    const follower = document.getElementById('cursor-follower');
-
-    document.addEventListener('mousemove', (e) => {
-        gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0 });
-        gsap.to(follower, { x: e.clientX - 14, y: e.clientY - 14, duration: 0.15 });
-    });
-
-    // Interactive elements scaling for cursor
-    const interactive = document.querySelectorAll('button, a, .bento-card, .project-item');
-    interactive.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            gsap.to(follower, { scale: 2.5, backgroundColor: 'rgba(232, 213, 181, 0.1)', borderColor: 'transparent', duration: 0.3 });
-        });
-        el.addEventListener('mouseleave', () => {
-            gsap.to(follower, { scale: 1, backgroundColor: 'transparent', borderColor: '#E8D5B5', duration: 0.3 });
-        });
-    });
-
-    // Hero Animations
-    // Cinematic Split Text Reveal
-
-    // Premium Cinematic Hero Reveal
-
-    const heroTL = gsap.timeline();
-
-    heroTL
-
-        .to(".hero-left", {
-            x: 0,
-            opacity: 1,
-            filter: "blur(0px)",
-            duration: 1.4,
-            stagger: 0.12,
-            ease: "expo.out"
-        })
-
-        .to(".hero-right", {
-            x: 0,
-            opacity: 1,
-            filter: "blur(0px)",
-            duration: 1.6,
-            ease: "expo.out"
-        }, "-=1")
-
-        .to(".hero-bottom", {
-            y: 0,
-            opacity: 1,
-            filter: "blur(0px)",
-            duration: 1.4,
-            ease: "expo.out"
-        }, "-=1.1")
-
-        .to(".hero-subtext", {
-            opacity: 1,
-            y: 0,
-            duration: 1.2,
-            ease: "expo.out"
-        }, "-=0.8")
-
-        .to(".hero-btns", {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            ease: "expo.out"
-        }, "-=0.8");
-    // Scroll Progress
-    gsap.to('#progress-bar', {
-        width: '100%',
-        scrollTrigger: {
-            trigger: 'body',
-            start: 'top top',
-            end: 'bottom bottom',
-            scrub: 0.2
-        }
-    });
-
-    // Bento Grid reveal
-    gsap.utils.toArray('.bento-card').forEach((card, i) => {
-        gsap.from(card, {
-            y: 60,
-            opacity: 0,
-            duration: 1,
-            scrollTrigger: {
-                trigger: card,
-                start: 'top 85%',
-                toggleActions: 'play none none none'
-            },
-            delay: i * 0.1
-        });
-    });
-
-    // Project Items reveal
-    gsap.utils.toArray('.project-item').forEach(item => {
-        gsap.from(item, {
-            y: 100,
-            opacity: 0,
-            duration: 1.5,
-            scrollTrigger: {
-                trigger: item,
-                start: 'top 90%',
-            }
-        });
-    });
-    // Mouse Reactive Background
-    document.addEventListener("mousemove", (e) => {
-
-        gsap.to(".orb-one", {
-            x: e.clientX * 0.02,
-            y: e.clientY * 0.02,
-            duration: 3
-        });
-
-        gsap.to(".orb-two", {
-            x: -e.clientX * 0.015,
-            y: -e.clientY * 0.015,
-            duration: 3
-        });
-
-    });
-    // Reveal Headlines
-    gsap.utils.toArray('h3').forEach(h3 => {
-        gsap.from(h3, {
-            x: -50,
-            opacity: 0,
-            duration: 1.2,
-            scrollTrigger: {
-                trigger: h3,
-                start: 'top 85%'
-            }
-        });
-    });
-
-    // Background Parallax for Project Images
-    gsap.utils.toArray('.project-item img').forEach(img => {
-        gsap.to(img, {
-            yPercent: 15,
-            ease: 'none',
-            scrollTrigger: {
-                trigger: img,
-                scrub: true
-            }
-        });
-    });
+ 
+/* ─── CUSTOM CURSOR ─── */
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  dot.style.left = mouseX + 'px';
+  dot.style.top = mouseY + 'px';
 });
-// Mobile Menu
-// Apple Style Mobile Menu
-
-const mobileMenu = document.getElementById('mobile-menu');
-const openMenu = document.getElementById('open-menu');
-const closeMenu = document.getElementById('close-menu');
-
-const menuTimeline = gsap.timeline({ paused: true });
-
-menuTimeline
-    .to(mobileMenu, {
-        opacity: 1,
-        pointerEvents: 'auto',
-        duration: 0.4,
-        ease: "power3.out"
-    })
-
-    .to('.mobile-link-text', {
-        y: 0,
-        opacity: 1,
-        stagger: 0.08,
-        duration: 0.8,
-        ease: "expo.out"
-    }, "-=0.1");
-
-openMenu.addEventListener('click', () => {
-    menuTimeline.play();
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+document.querySelectorAll('a, button, .tab-btn, .rcat-btn, .pj-thumb, .pj-nav-tab, .svc-card, .test-card, .price-card, .faq-q').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
 });
 
-closeMenu.addEventListener('click', () => {
-    menuTimeline.reverse();
+/* ─── LOADER ─── */
+window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('out'), 2400));
+setTimeout(() => document.getElementById('loader').classList.add('out'), 3500);
+
+/* ─── MOBILE MENU ─── */
+document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobile-menu').classList.add('open'));
+document.getElementById('close-menu').addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('open'));
+function closeMM() { document.getElementById('mobile-menu').classList.remove('open'); }
+
+/* ─── TAB SWITCHER ─── */
+document.getElementById('tab-web').addEventListener('click', function () {
+  this.classList.add('active');
+  document.getElementById('tab-reels').classList.remove('active');
+  document.getElementById('web-grid').style.display = 'block';
+  document.getElementById('reel-grid').style.display = 'none';
+});
+document.getElementById('tab-reels').addEventListener('click', function () {
+  this.classList.add('active');
+  document.getElementById('tab-web').classList.remove('active');
+  document.getElementById('reel-grid').style.display = 'block';
+  document.getElementById('web-grid').style.display = 'none';
 });
 
-// Close after click
-document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-        menuTimeline.reverse();
+/* ─── PROJECT VIEWERS ─── */
+document.querySelectorAll('.pj-viewer').forEach(function (viewer) {
+  const windowEl = viewer.querySelector('.pj-window');
+  const imgWrap = viewer.querySelector('.pj-img-wrap');
+  const img = imgWrap.querySelector('img');
+  const progressFill = viewer.querySelector('.pj-progress-fill');
+  const pageLabel = viewer.querySelector('.pj-page-label');
+  const navTabs = viewer.querySelectorAll('.pj-nav-tab');
+  const row = viewer.closest('.pj-row');
+  const thumbs = row ? row.querySelectorAll('.pj-thumb') : [];
+  const images = JSON.parse(viewer.getAttribute('data-images') || '[]');
+  let curIdx = 0, rafId = null, isHovered = false;
+
+  function loadPage(idx) {
+    if (!images[idx]) return;
+    curIdx = idx;
+    stopScroll();
+    imgWrap.style.opacity = '0';
+    imgWrap.style.transition = 'opacity 0.25s ease';
+    imgWrap.style.transform = 'translateY(0)';
+    setTimeout(() => {
+      img.src = images[idx].src;
+      img.alt = images[idx].label || '';
+      if (pageLabel) pageLabel.textContent = images[idx].label || ('Page ' + (idx + 1));
+      imgWrap.style.opacity = '1';
+      if (img.complete) { if (isHovered) setTimeout(startScroll, 100); }
+      else { img.onload = () => { if (isHovered) setTimeout(startScroll, 100); }; }
+    }, 200);
+    navTabs.forEach(t => t.classList.toggle('cur', parseInt(t.getAttribute('data-idx')) === idx));
+    thumbs.forEach((th, i) => th.classList.toggle('active', i === idx));
+  }
+
+  function startScroll() {
+    if (!isHovered) return;
+    const windowH = windowEl.offsetHeight;
+    const imgH = img.offsetHeight;
+    const scrollable = imgH - windowH;
+    if (scrollable <= 0) return;
+    const dur = Math.min(14000, Math.max(4000, scrollable * 14));
+    let startTime = null;
+    function step(ts) {
+      if (!isHovered) { stopScroll(); return; }
+      if (!startTime) startTime = ts;
+      const elapsed = ts - startTime;
+      const progress = Math.min(elapsed / dur, 1);
+      const eased = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+      imgWrap.style.transition = 'none';
+      imgWrap.style.transform = 'translateY(' + (-(eased * scrollable)) + 'px)';
+      if (progressFill) progressFill.style.height = (eased * 100) + '%';
+      if (progress < 1) rafId = requestAnimationFrame(step);
+    }
+    rafId = requestAnimationFrame(step);
+  }
+
+  function stopScroll() {
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    imgWrap.style.transition = 'transform 0.5s cubic-bezier(0.4,0,0.2,1)';
+    imgWrap.style.transform = 'translateY(0)';
+    if (progressFill) progressFill.style.height = '0%';
+  }
+
+  viewer.addEventListener('mouseenter', () => {
+    isHovered = true;
+    if (img.complete && img.naturalHeight > 0) startScroll();
+    else img.addEventListener('load', () => { if (isHovered) startScroll(); }, { once: true });
+  });
+  viewer.addEventListener('mouseleave', () => { isHovered = false; stopScroll(); });
+
+  navTabs.forEach(tab => {
+    tab.addEventListener('click', e => { e.stopPropagation(); loadPage(parseInt(tab.getAttribute('data-idx'))); });
+  });
+  thumbs.forEach((thumb, i) => {
+    thumb.addEventListener('click', () => {
+      loadPage(i);
+      navTabs.forEach(t => t.classList.toggle('cur', parseInt(t.getAttribute('data-idx')) === i));
     });
-});
-// Running Hero Text Animation
-// Premium Running Word Reveal
-
-const words = [
-    "Cinematic",
-    "Premium",
-
-    "Luxury",
-    "Modern",
-    "Iconic"
-];
-
-const changingText = document.getElementById("changing-text");
-const textWrapper = document.getElementById("text-wrapper");
-
-let wordIndex = 0;
-
-// Dynamic Width Fix
-const measure = document.createElement("span");
-
-measure.style.position = "absolute";
-measure.style.visibility = "hidden";
-measure.style.whiteSpace = "nowrap";
-measure.style.fontSize = getComputedStyle(changingText).fontSize;
-measure.style.fontFamily = getComputedStyle(changingText).fontFamily;
-
-document.body.appendChild(measure);
-
-let maxWidth = 0;
-
-words.forEach(word => {
-    measure.innerText = word;
-    maxWidth = Math.max(maxWidth, measure.offsetWidth);
+  });
 });
 
-textWrapper.style.width = `${maxWidth + 20}px`;
+/* ─── REEL FILTER ─── */
+document.querySelectorAll('.rcat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.rcat-btn').forEach(b => b.classList.remove('act'));
+    btn.classList.add('act');
+    const cat = btn.dataset.cat;
+    document.querySelectorAll('.reel-card').forEach(c => {
+      c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'block' : 'none';
+    });
+  });
+});
 
-// Cinematic Word Animation
+/* ─── FAQ ACCORDION ─── */
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+/* ─── SCROLL REVEAL ─── */
+const revObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => revObs.observe(el));
+
+/* ─── ANIMATED COUNTERS ─── */
+function runCnt(el) {
+  const t = parseInt(el.dataset.t), s = el.dataset.s || '';
+  let c = 0;
+  const step = Math.max(1, Math.ceil(t / 60));
+  const ti = setInterval(() => { c = Math.min(c + step, t); el.textContent = c + s; if (c >= t) clearInterval(ti); }, 16);
+}
+const cntObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { runCnt(e.target); cntObs.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.cnt').forEach(el => cntObs.observe(el));
+
+/* ─── LIVE DASHBOARD ─── */
+let lv = 243901;
+const lvEl = document.getElementById('live-num');
 setInterval(() => {
+  lv += Math.floor(Math.random() * 8) + 2;
+  if (lvEl) lvEl.textContent = lv.toLocaleString('en-IN');
+  const bars = document.querySelectorAll('.dm-bar');
+  if (bars.length) { const b = bars[Math.floor(Math.random() * bars.length)]; b.style.height = (Math.floor(Math.random() * 55) + 30) + '%'; }
+}, 3000);
 
-    gsap.to(changingText, {
-        x: 100,
-        opacity: 0,
-        filter: "blur(10px)",
-        duration: 0.5,
-        ease: "power3.in",
-        onComplete: () => {
-
-            wordIndex = (wordIndex + 1) % words.length;
-
-            changingText.textContent = words[wordIndex];
-
-            gsap.fromTo(
-                changingText,
-                {
-                    x: -100,
-                    opacity: 0,
-                    filter: "blur(10px)"
-                },
-                {
-                    x: 0,
-                    opacity: 1,
-                    filter: "blur(0px)",
-                    duration: 1,
-                    ease: "expo.out"
-                }
-            );
-
-        }
-    });
-
-}, 2500);
-
-
-
-// loader 
-// Premium Loader Animation
-
-const loaderTL = gsap.timeline();
-
-loaderTL
-
-    .to(".loader-letter", {
-        y: 0,
-        opacity: 1,
-        filter: "blur(0px)",
-        stagger: 0.08,
-        duration: 1,
-        ease: "expo.out"
-    })
-
-    .to(".loader-letter", {
-        opacity: 0.7,
-        duration: 0.3,
-        stagger: 0.03,
-        repeat: 1,
-        yoyo: true
-    })
-
-    .to("#loader", {
-        opacity: 0,
-        duration: 1,
-        ease: "power3.inOut",
-        delay: 0.3,
-        onComplete: () => {
-            document.getElementById("loader").style.display = "none";
-        }
-    });
-
-
-// Blob Mouse Movement
-
-document.addEventListener("mousemove", (e) => {
-
-    gsap.to(".center-blob", {
-        x: (e.clientX - window.innerWidth / 2) * 0.02,
-        y: (e.clientY - window.innerHeight / 2) * 0.02,
-        duration: 4,
-        ease: "power3.out"
-    });
-
+/* ─── CONTACT FORM → WHATSAPP ─── */
+document.getElementById('cform').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = id => document.getElementById(id).value.trim();
+  const brief = [
+    '━━━━━━━━━━━━━━━━━━━━━━━',
+    '📋 *NEW PROJECT BRIEF*',
+    'Xtract Studios — xtractstudios.in',
+    '━━━━━━━━━━━━━━━━━━━━━━━',
+    '', '👤 *CLIENT*',
+    '• Name: ' + v('fn'), '• Company: ' + (v('fc') || 'Not given'),
+    '• Email: ' + v('fe'), '• WhatsApp: ' + v('fp'),
+    '', '🛠️ *PROJECT*',
+    '• Service: ' + v('fs'), '• Budget: ' + v('fb'),
+    '• Timeline: ' + v('ft'), '• Current Site: ' + (v('fw') || 'None'),
+    '', '💬 *DESCRIPTION*', v('fm'),
+    '', '━━━━━━━━━━━━━━━━━━━━━━━',
+    '_Sent via xtractstudios.in_'
+  ].join('\n');
+  window.open('https://wa.me/918448908359?text=' + encodeURIComponent(brief), '_blank');
+  document.getElementById('cform').style.display = 'none';
+  document.getElementById('form-ok').style.display = 'block';
 });
 
-
-// PREMIUM CARD REVEAL
-
-gsap.utils.toArray(".premium-card").forEach((card, i) => {
-
-    gsap.from(card, {
-
-        opacity: 0,
-        y: 80,
-        scale: 0.92,
-        duration: 1.2,
-        ease: "expo.out",
-
-        scrollTrigger: {
-            trigger: card,
-            start: "top 88%"
-        },
-
-        delay: i * 0.08
-
-    });
-
-});
-
-// MAGNETIC HOVER
-
-document.querySelectorAll(".premium-card").forEach(card => {
-
-    card.addEventListener("mousemove", (e) => {
-
-        const rect = card.getBoundingClientRect();
-
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-
-        gsap.to(card, {
-            x: x * 0.08,
-            y: y * 0.08,
-            duration: 0.6,
-            ease: "power3.out"
-        });
-
-    });
-
-    card.addEventListener("mouseleave", () => {
-
-        gsap.to(card, {
-            x: 0,
-            y: 0,
-            duration: 0.8,
-            ease: "elastic.out(1,0.4)"
-        });
-
-    });
-
-});
-
-
-// WORK SECTION REVEAL
-
-gsap.utils.toArray(".project-card").forEach((card, i) => {
-
-    gsap.from(card, {
-
-        opacity: 0,
-        y: 120,
-        scale: 0.92,
-        duration: 1.4,
-        ease: "expo.out",
-
-        scrollTrigger: {
-            trigger: card,
-            start: "top 85%"
-        },
-
-        delay: i * 0.12
-
-    });
-
-});
-
-// PARALLAX IMAGES
-
-document.querySelectorAll(".project-card").forEach(card => {
-
-    const image = card.querySelector(".project-image");
-
-    card.addEventListener("mousemove", (e) => {
-
-        const rect = card.getBoundingClientRect();
-
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-        gsap.to(image, {
-            x: x * 20,
-            y: y * 20,
-            duration: 1,
-            ease: "power3.out"
-        });
-
-    });
-
-    card.addEventListener("mouseleave", () => {
-
-        gsap.to(image, {
-            x: 0,
-            y: 0,
-            duration: 1.2,
-            ease: "expo.out"
-        });
-
-    });
-
-});
-
-
-// PRICING REVEAL
-
-gsap.utils.toArray(".pricing-card").forEach((card, i) => {
-
-    gsap.from(card, {
-
-        opacity: 0,
-        y: 100,
-        scale: 0.92,
-        duration: 1.2,
-        ease: "expo.out",
-
-        scrollTrigger: {
-            trigger: card,
-            start: "top 88%"
-        },
-
-        delay: i * 0.1
-
-    });
-
-});
-
-// MAGNETIC EFFECT
-
-document.querySelectorAll(".pricing-card").forEach(card => {
-
-    card.addEventListener("mousemove", (e) => {
-
-        const rect = card.getBoundingClientRect();
-
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-
-        gsap.to(card, {
-            x: x * 0.05,
-            y: y * 0.05,
-            duration: 0.6,
-            ease: "power3.out"
-        });
-
-    });
-
-    card.addEventListener("mouseleave", () => {
-
-        gsap.to(card, {
-            x: 0,
-            y: 0,
-            duration: 0.8,
-            ease: "elastic.out(1,0.4)"
-        });
-
-    });
-
-});
-
-
-// IMAGE REVEAL
-
-gsap.from(".founder-image-wrapper", {
-
-    opacity: 0,
-    y: 100,
-    scale: 0.92,
-    duration: 1.5,
-    ease: "expo.out",
-
-    scrollTrigger: {
-        trigger: ".founder-image-wrapper",
-        start: "top 80%"
-    }
-
-});
-
-// CONTENT REVEAL
-
-gsap.from("#about .space-y-10 > *", {
-
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    stagger: 0.15,
-    ease: "power3.out",
-
-    scrollTrigger: {
-        trigger: "#about",
-        start: "top 70%"
-    }
-
-});
-
-// FLOATING CARD
-
-gsap.to(".glass-card", {
-
-    y: -12,
-    duration: 3,
-    repeat: -1,
-    yoyo: true,
-    ease: "sine.inOut"
-
-});
-
-// PARALLAX IMAGE
-
-document.querySelector(".founder-image-wrapper")
-.addEventListener("mousemove", (e) => {
-
-    const image = document.querySelector(".founder-image");
-
-    const rect = e.currentTarget.getBoundingClientRect();
-
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-    gsap.to(image, {
-
-        x: x * 20,
-        y: y * 20,
-        duration: 1,
-        ease: "power3.out"
-
-    });
-
-});
-
-document.querySelector(".founder-image-wrapper")
-.addEventListener("mouseleave", () => {
-
-    gsap.to(".founder-image", {
-
-        x: 0,
-        y: 0,
-        duration: 1.2,
-        ease: "expo.out"
-
-    });
-
-});
-
-
-// FOOTER REVEAL
-
-gsap.from("footer .grid > div", {
-
-    opacity: 0,
-    y: 50,
-    duration: 1,
-    stagger: 0.15,
-    ease: "power3.out",
-
-    scrollTrigger: {
-        trigger: "footer",
-        start: "top 85%"
-    }
-
-});
-
-// FOOTER CTA
-
-gsap.from("footer h2", {
-
-    opacity: 0,
-    y: 80,
-    duration: 1.2,
-    ease: "expo.out",
-
-    scrollTrigger: {
-        trigger: "footer",
-        start: "top 80%"
-    }
-
-});
+function resetForm() {
+  document.getElementById('cform').reset();
+  document.getElementById('cform').style.display = 'grid';
+  document.getElementById('form-ok').style.display = 'none';
+}
